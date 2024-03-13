@@ -1,0 +1,6 @@
+# files for Docker to ignore
+.*
+/.github
+/scripts
+/
+/web

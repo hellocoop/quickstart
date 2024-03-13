@@ -1,0 +1,10 @@
+name: Increment version
+
+on:
+  pull_request_target:
+    types: [ opened, synchronize ] #Runs on PR creation/updation
+    branches: [ main ]
+
+jobs: 
+  version:
+    uses: hellocoop/tools/.github/workflows/code-version.yml@main
