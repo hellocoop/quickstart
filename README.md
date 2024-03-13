@@ -45,5 +45,3 @@ If possible, the sample app will have a link to test out the sample app, as well
 
 [MIT](LICENSE)
 
-## Some test text to test new branch
-
