@@ -1,7 +1,7 @@
 {
   "name": "src",
   "private": true,
-  "version": "2024.3.12",
+  "version": "2024.5.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -15,7 +15,7 @@
     "review": "npm run rebase && npm run test && npm run pr"
   },
   "engines": {
-    "node": "~20",
+    "node": "~18",
     "npm": "~10"
   },
   "devDependencies": {
