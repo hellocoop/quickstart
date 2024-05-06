@@ -15,7 +15,7 @@
     "review": "npm run rebase && npm run test && npm run pr"
   },
   "engines": {
-    "node": "~20",
+    "node": "~18",
     "npm": "~10"
   },
   "devDependencies": {
