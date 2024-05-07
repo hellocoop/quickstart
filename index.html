@@ -6,7 +6,8 @@
     <link rel="stylesheet" href="https://cdn.hello.coop/css/hello-button.css"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Hellō Quickstart</title>
-    <script defer data-domain="quickstart.hello.coop" src="/js/script.hash.js"></script>
+    <!-- integrity is hard coded here because this file only exists in staging/prod -->
+    <script defer="" data-domain="quickstart.hello.coop" src="/js/script.hash.js" integrity="sha384-FdT0ckY/mNQfVjNr2bQitP0whLNbQL/hpzDppc+cebo9UkV+1mSBX49sb+8jeoM4" crossorigin="anonymous"></script>
     <style>
       @media (prefers-color-scheme: dark) {
         html {
@@ -23,20 +24,7 @@
   <body class="bg-white dark:bg-[#151515] text-charcoal dark:text-[#d4d4d4]">
     <div id="app"></div>
     <script type="module" src="/src/main.js"></script>
-    <script defer src="https://cdn.hello.coop/js/hello-dev-wc-footer.js"></script>
+    <script defer src="/assets/quickstart-glob.js"></script>
+    <script defer src="/assets/hello-dev-wc-footer.js"></script>
   </body>
-  <script>
-    /**
-     * If browser back button was used, flush cache
-     * This ensures that user will always see an accurate, up-to-date view based on their state
-     * https://stackoverflow.com/questions/8788802/prevent-safari-loading-from-cache-when-back-button-is-clicked
-     */
-    (function () {
-        window.onpageshow = function (event) {
-            if (event.persisted) {
-                window.location.reload();
-            }
-        };
-    })();
-  </script>
 </html>
