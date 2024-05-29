@@ -105,3 +105,5 @@ const addList = () => {
 }
 
 window.onload = hydrate;
+document.querySelector('#ignore').addEventListener('click', ignoreAll);
+document.querySelector('#clear').addEventListener('click', clearAll);
