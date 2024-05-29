@@ -103,3 +103,5 @@ const addList = () => {
     linksRef.appendChild(liEl)
   }
 }
+
+window.onload = hydrate;
