@@ -14,6 +14,8 @@ const hydrate = () => {
   processParams()
   addList()
   plausibleIgnoreState()
+  document.querySelector('#ignore').addEventListener('click', ignoreAll);
+  document.querySelector('#clear').addEventListener('click', clearAll);
 }
 
 const processParams = () => {
@@ -105,5 +107,3 @@ const addList = () => {
 }
 
 window.onload = hydrate;
-document.querySelector('#ignore').addEventListener('click', ignoreAll);
-document.querySelector('#clear').addEventListener('click', clearAll);
