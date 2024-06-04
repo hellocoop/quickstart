@@ -1,12 +1,12 @@
 {
   "name": "src",
   "private": true,
-  "version": "2024.5.8",
+  "version": "2024.6.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build --sourcemap true",
-    "postinstall": "./scripts/pre-requisites.sh",
+    "pre-req": "./scripts/pre-requisites.sh",
     "build:prod": "vite build",
     "preview": "vite preview",
     "test": "echo \"Error: no test specified\" && exit 0",
