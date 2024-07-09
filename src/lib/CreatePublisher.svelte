@@ -91,12 +91,12 @@
         })
       }
 
-      const appRes = await postApplication(pubRes.id, postAppBody)
+      const appRes = await postApplication(pubRes.profile.id, postAppBody)
       if((serverCanFetchLogo && sendImageUri) || (serverCanFetchDarkLogo && sendDarkImageUri)){
         if(serverCanFetchLogo && sendImageUri) {
           try {
             // const resizedImageBlob = await resizeImage(sessionStorage.image_uri)
-            const image_uri = await postImage(pubRes.id, appRes.id, sessionStorage.image_uri) 
+            const image_uri = await postImage(pubRes.profile.id, appRes.id, sessionStorage.image_uri) 
             appRes.image_uri = image_uri
           } catch(e) {
             console.error(e)
@@ -105,13 +105,13 @@
         if(serverCanFetchDarkLogo && sendDarkImageUri) {
           try {
             // const resizedImageBlob = await resizeImage(sessionStorage.dark_image_uri)
-            const image_uri = await postImage(pubRes.id, appRes.id, sessionStorage.dark_image_uri) 
+            const image_uri = await postImage(pubRes.profile.id, appRes.id, sessionStorage.dark_image_uri) 
             appRes.dark_image_uri = image_uri
           } catch(e) {
             console.error(e)
           }
         } 
-        const updateApp = await putApplication(pubRes.id, appRes.id, appRes)
+        const updateApp = await putApplication(pubRes.profile.id, appRes.id, appRes)
       }
       client_id = appRes.id
     } catch(err){      
