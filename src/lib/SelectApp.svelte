@@ -16,7 +16,7 @@
   const wildcardDomain = sessionStorage.wildcard_domain == 'true'
 
   //if wildcard_domain, only show existing apps with https://* enabled
-  const applications = $data?.currentPublisher?.applications?.filter(i => wildcardDomain ? i?.web?.dev?.wildcard_domain : true)
+  $: applications = $data?.currentPublisher?.applications?.filter(i => wildcardDomain ? i?.web?.dev?.wildcard_domain : true)
 
   let createdBy = "quickstart"
   if (sessionStorage.integration) {
@@ -26,12 +26,10 @@
   const placeholderAppName =
     customAppName ||
     `${$data?.profile?.name}'s ${customAppNameSuffix || "Application"}`
-  let selectedAppID = customAppName ? 'create' : (applications?.[0]?.id || 'create')
+  $: selectedAppID = customAppName ? 'create' : (applications?.[0]?.id || 'create')
   let applicationName = $data?.currentPublisher?.applications?.find(
     (i) => i.name === placeholderAppName
-  )
-    ? ""
-    : placeholderAppName
+  ) ? "" : placeholderAppName
 
   $: _selectedAppData =
     $data?.currentPublisher?.applications?.find(
@@ -224,7 +222,8 @@
             class="form-radio mt-1"
             name="application_name"
             value={application.id}
-            bind:group={selectedAppID}
+            on:change={() => (selectedAppID = application.id)}
+            checked={selectedAppID === application.id}
           />
           <div class="ml-[1.7rem]">
             <label for={application.id} class="text-base"
