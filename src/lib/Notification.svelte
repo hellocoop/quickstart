@@ -10,7 +10,7 @@
 </script>
 
 <div
-    class="h-12 text-charcoal flex-shrink-0 flex items-center justify-center text-sm"
+    class="h-10 text-charcoal flex-shrink-0 flex items-center justify-center text-sm"
     class:bg-green-500={notification.type === 'success'}
     class:bg-red-500={notification.type === 'error'}
     transition:slide
