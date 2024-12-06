@@ -9,14 +9,17 @@
             const { url, nonce, code_verifier } = await createAuthRequest({
                 client_id: clientId,
                 redirect_uri: redirectUri,
-                wallet,
+                wallet
             })
 
             // save nonce and code_verifier for fetching the token later
             sessionStorage.setItem('nonce', nonce)
             sessionStorage.setItem('code_verifier', code_verifier)
 
-            window.location.href = url;
+            // hack for now since createAuthRequest does not support 'quickstart' scope
+            const authorize = new URL(url)
+            authorize.searchParams.set('scope', 'quickstart profile')
+            window.location.href = authorize.href;
         } catch(err) {
             console.error(err)
             continueWithHelloAjax = false;
