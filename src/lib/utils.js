@@ -10,6 +10,4 @@ function cleanUrl() {
 	}
 }
 
-export {
-    cleanUrl
-}
+export { cleanUrl };
