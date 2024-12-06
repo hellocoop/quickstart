@@ -3,7 +3,8 @@
   import Login from "$lib/pages/Login.svelte";
   import { onMount } from "svelte";
   import { fetchToken } from "@hellocoop/helper-browser";
-    import { admin, clientId, redirectUri, wallet } from "./lib/constants";
+  import { admin, clientId, redirectUri, wallet } from "./lib/constants";
+  import { cleanUrl } from '$lib/utils.js'
 
   onMount(async() => {
     const { search } = window.location;
@@ -22,6 +23,8 @@
       })
       const json = await res.json()
     }
+
+    cleanUrl();
   })
 
   async function processCode(params) {
@@ -42,14 +45,13 @@
 					code,
 					client_id: clientId,
 					code_verifier,
-					nonce: nonce,
+					// nonce: nonce,
 					redirect_uri: redirectUri,
 					grant_type: 'authorization_code'
 				}).toString()
 			});
 			const { access_token } = await tokenRes.json();
       sessionStorage.setItem('access_token', access_token)
-      console.log(access_token)
     } catch(err) {
        console.error(err)
     } finally {
