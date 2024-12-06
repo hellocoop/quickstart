@@ -183,17 +183,5 @@
 </main>
 
 {#if mounted}
-  <wc-footer />
+  <wc-footer></wc-footer>
 {/if}
-
-<!-- DEBUG CREATE PUBLISHER CODE -->
-<!-- <div class="absolute bottom-20">
-  <button on:click={async()=>{
-
-    const pubRes = await postPublisher({
-      name: 'asdfasdfasdsdf'
-    })
-  }
-  }>debug create publisher</button>
-  <input type="text"/>
-</div> -->
