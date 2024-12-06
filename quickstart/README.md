@@ -17,10 +17,10 @@ Load `https://quickstart.hello.coop/` with the following query parameters:
 - `pp_uri` - (OPTIONAL) privacy policy link
 - `image_uri` - (OPTIONAL) app logo link
 - `dark_image_uri` - (OPTIONAL) app logo link for dark theme
-- `redirect_uri` - (OPTIONAL) one or more space separated OAuth `redirect_uri` values to be added to the Production Redirect URIs. `http:\\localhost:*` and `http:\\127.0.0.1` Development Redirect URIs are enabled by default
+- `redirect_uri` - (OPTIONAL) one or more space separated OAuth `redirect_uri` values to be added to the Production Redirect URIs. `http://localhost:*` and `http://127.0.0.1` Development Redirect URIs are enabled by default
 - `integration` - (OPTIONAL) how the application is created. defaults to `quickstart`
 - `wildcard_domain` - (OPTIONAL) a boolean value indicating if wildcard domains are enabled in Development Redirect URIs
-- `provider_hint` - (OPTIONAL) a space separated list of recommended providers per [provider_hint](https://www.hello.dev/documentation/provider-hint.html#recommended-provider-defaults)
+- `provider_hint` - (OPTIONAL) a space separated list of recommended providers per [provider_hint](https://www.hello.dev/docs/apis/wallet/#provider_hint)
 
 Eg: `response_uri` = `http://localhost:8000/` & `suffix` = "Next.js"
 
