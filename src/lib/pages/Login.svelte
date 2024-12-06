@@ -29,19 +29,17 @@
     }
 </script>
 
-<main class="max-w-md m-12 container mx-auto flex flex-col flex-1 px-4">
-    <h1 class="text-2xl font-semibold text-center">Quickstart App</h1>
-    <p class="text-center mt-4">
-        Quickstart accelerates getting up and running with Hellō. It will read
-        an existing client_id, or create one.
-    </p>
+<h1 class="text-2xl font-semibold text-center">Quickstart App</h1>
+<p class="text-center mt-4">
+    Quickstart accelerates getting up and running with Hellō. It will read
+    an existing client_id, or create one.
+</p>
 
-    <button
-        onclick={continueWithHello}
-        class="hello-btn-black-and-static hello-btn-hover-flare w-56 mx-auto mt-12"
-        class:hello-btn-loader={continueWithHelloAjax}
-        disabled={continueWithHelloAjax}
-    >
-        ō&nbsp;&nbsp;&nbsp;Continue with Hellō
-    </button>
-</main>
+<button
+    onclick={continueWithHello}
+    class="hello-btn-black-and-static hello-btn-hover-flare w-56 mx-auto mt-12"
+    class:hello-btn-loader={continueWithHelloAjax}
+    disabled={continueWithHelloAjax}
+>
+    ō&nbsp;&nbsp;&nbsp;Continue with Hellō
+</button>

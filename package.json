@@ -11,9 +11,12 @@
   "devDependencies": {
     "@hellocoop/helper-browser": "^2.4.3",
     "@sveltejs/vite-plugin-svelte": "^5.0.0",
+    "@tailwindcss/forms": "^0.5.9",
     "autoprefixer": "^10.4.20",
     "postcss": "^8.4.49",
+    "quickstart": "^1.2.2",
     "svelte": "^5.2.7",
+    "svelte-spa-router": "^4.0.1",
     "tailwindcss": "^3.4.16",
     "vite": "^6.0.1"
   }
