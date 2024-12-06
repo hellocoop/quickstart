@@ -10,14 +10,6 @@ function cleanUrl() {
 	}
 }
 
-function preventDefault(fn) {
-	return function (event) {
-		event.preventDefault();
-		fn.call(this, event);
-	};
-}
-
 export {
-    cleanUrl,
-	preventDefault
+    cleanUrl
 }
