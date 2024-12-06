@@ -9,7 +9,7 @@
 </script>
 
 <h1 class="font-semibold text-lg">Create Publisher & Application</h1>
-<div class="space-y-4 mt-4" on:submit={createPublisherApplication}>
+<div class="space-y-4 mt-4">
 	<label for="publisher-name" class="block">
 		<span class="text-sm opacity-80">Publisher Name</span>
 		<input id="publisher-name" class="form-input block w-full mt-1" bind:value={publisherName} />

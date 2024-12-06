@@ -29,7 +29,7 @@
 
 	async function processCode(params) {
 		const code = params.get('code');
-		const nonce = sessionStorage.getItem('nonce');
+		// const nonce = sessionStorage.getItem('nonce');
 		const code_verifier = sessionStorage.getItem('code_verifier');
 		// if (!code || !nonce || !code_verifier)
 		// do something

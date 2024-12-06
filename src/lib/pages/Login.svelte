@@ -6,7 +6,8 @@
 	async function continueWithHello() {
 		try {
 			continueWithHelloAjax = true;
-			const { url, nonce, code_verifier } = await createAuthRequest({
+			// const { url, nonce, code_verifier } = await createAuthRequest({
+			const { url, code_verifier } = await createAuthRequest({
 				client_id: clientId,
 				redirect_uri: redirectUri,
 				response_mode: 'fragment',
