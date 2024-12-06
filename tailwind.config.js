@@ -1,8 +1,8 @@
-module.exports = {
-  darkMode: 'media',
+/** @type {import('tailwindcss').Config} */
+export default {
   content: [
     "./index.html",
-    "./src/**/*.{svelte,js,ts}",
+    "./src/**/*.{svelte,js,ts,jsx,tsx}",
   ],
   theme: {
     extend: {
@@ -11,9 +11,5 @@ module.exports = {
       }
     },
   },
-  plugins: [
-    require('@tailwindcss/forms')({
-      strategy: 'class'
-    })
-  ]
+  plugins: [],
 }

@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body, #app {
+  @apply h-full
+}
+
+.hello-btn-black-and-static {
+  @apply h-11 font-medium
+}

@@ -1,26 +1,17 @@
-import { defineConfig } from 'vite'
-import { svelte } from '@sveltejs/vite-plugin-svelte'
-import sri from './sri.js';
+import { defineConfig } from 'vite';
+import { svelte } from '@sveltejs/vite-plugin-svelte';
+import path from 'path';
 
-// https://vitejs.dev/config/
+// https://vite.dev/config/
 export default defineConfig({
-  plugins: [
-    svelte(),
-    {
-			enforce: "post",
-			...sri({ publicPath: "/" })
+	plugins: [svelte()],
+	resolve: {
+		alias: {
+			$lib: path.resolve('./src/lib'),
+			$components: path.resolve('./src/lib/components')
 		}
-  ],
-  build: {
-    outDir: 'S3',
-    emptyOutDir: true
-  },
-  server: {
-    host: '0.0.0.0',
-    port: 7002,
-    hmr: {
-      clientPort: 443,
-      host: 'quickstart.' + process.env.HELLO_DOMAIN
-    }
-  }
-})
+	},
+	server: {
+		port: 7002
+	}
+});
