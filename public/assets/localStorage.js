@@ -43,11 +43,15 @@ const processParams = () => {
   window.location.href = url
 }
 
+const ignoreAllBtn =  $("ignore-all-btn")
+ignoreAllBtn.addEventListener("click", ignoreAll)
 const ignoreAll = () => {
   const url = makeParams("ignoreAll")
   window.location.href = url
 }
 
+const clearAllBtn = $("clear-all-btn")
+clearAllBtn.addEventListener("click", clearAll)
 const clearAll = () => {
   const url = makeParams("clearAll")
   window.location.href = url

@@ -14,7 +14,6 @@
 				padding: 0.38rem 1rem;
 			}
 		</style>
-		<script src="/assets/localStorage.js"></script> 
 	</head>
 	<body class="max-w-3xl p-6 mx-auto" onload="hydrate()">
 		<h1 class="text-xl font-medium">Manage localStorage</span></h1>
@@ -24,10 +23,11 @@
 			<label for="plausible_ignore" class="ml-2">plausible_ignore</label>
 		</div>
 		<div>
-			<button onClick="ignoreAll()">Ignore all</button>
-			<button onClick="clearAll()" class="ml-1">Clear all</button>
+			<button id="ignore-all-btn">Ignore all</button>
+			<button id="clear-all-btn" class="ml-1">Clear all</button>
 		</div>
 		<ul id="links" class="my-6 space-y-2">
 		</ul>
+		<script defer src="/assets/localStorage.js"></script> 
 	</body>
 </html>
