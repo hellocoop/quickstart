@@ -10,7 +10,8 @@ const sites = [
   "https://blog.hello.coop/localstorage/",
   "https://www.b2bsaasdemo.com/localStorage.html"
 ]
-const hydrate = () => {
+
+window.onload = () => {
   $("hostname").textContent = window.location.hostname
   processParams()
   addList()
