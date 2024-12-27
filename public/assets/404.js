@@ -16,5 +16,5 @@ window.onload = () => {
 }
 
 const backBtn = document.querySelector('#back-btn')
-backBtn.addEventListener('click', goBack)
 const goBack = () => history.back();
+backBtn.addEventListener('click', goBack)
