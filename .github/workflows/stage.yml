@@ -18,7 +18,7 @@ jobs:
 
   sync:
     needs: stage_check
-    uses: hellocoop/tools/.github/workflows/code-deploy-client-test.yml@main
+    uses: hellocoop/tools/.github/workflows/code-deploy-client.yml@main
     with:
       AWS_ACCOUNT: ${{ vars.HELLO_STAGING_AWS }} # set at org level 
       STACK: QuickstartStack
