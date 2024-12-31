@@ -1,22 +1,17 @@
 {
-  "name": "src",
-  "private": true,
+  "name": "quickstart",
   "version": "2024.12.7",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build --sourcemap true",
-    "pre-req": "./scripts/pre-requisites.sh",
     "build:prod": "vite build",
     "preview": "vite preview",
-    "test": "echo \"Error: no test specified\" && exit 0",
-    "pr": "./scripts/pr.sh",
-    "rebase": "git pull origin main --rebase",
-    "review": "npm run rebase && npm run test && npm run pr"
+    "test": "echo \"Error: no test specified\" && exit 0"
   },
   "engines": {
-    "node": "~18",
-    "npm": "~10"
+    "node": ">=18",
+    "npm": ">=10"
   },
   "devDependencies": {
     "@sveltejs/vite-plugin-svelte": "^2.4.1",
