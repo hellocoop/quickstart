@@ -9,11 +9,11 @@ on:
 jobs:
   sync:
     if: github.event.pull_request.merged == true || github.event_name == 'workflow_dispatch'
-    uses: hellocoop/tools/.github/workflows/code-deploy-client.yml@main
+    uses: hellocoop/tools/.github/workflows/code-deploy-client-test.yml@main
     with:
       AWS_ACCOUNT: ${{ vars.HELLO_STAGING_AWS }} # set at org level 
       STACK: QuickstartStack
-      BUILD_CMD: npm run build
+      WORKING_DIR: .
       TARGET: main
       DOMAIN: quickstart.hello-staging.net # for version comparison      
       BUILD_DIR: ./S3
