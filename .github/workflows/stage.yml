@@ -9,7 +9,7 @@ on:
 jobs:
   stage_check: # only stage if pr was merged with main or workflow triggered manually
     if: github.event.pull_request.merged == true || github.event_name == 'workflow_dispatch'
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - name: Check Stage Conditions
         run: echo "stage_check passed, proceeding to deploy to staging"
