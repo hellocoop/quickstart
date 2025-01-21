@@ -95,7 +95,7 @@
 {/if}
 
 {#if $notification != null}
-	<Notification notification={$notification} />
+	<Notification />
 {/if}
 
 <main data-test="test-run-8" class="container m-12 mx-auto flex max-w-md flex-1 flex-col px-4">

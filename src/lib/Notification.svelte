@@ -1,21 +1,15 @@
 <script>
 	import { slide } from 'svelte/transition';
-
-	let {
-		notification = {
-			text: '',
-			type: 'success'
-		}
-	} = $props();
+	import { notification } from '../store.js';
 </script>
 
 <div
 	class="flex h-9 flex-shrink-0 items-center justify-center text-sm text-charcoal"
-	class:bg-green-500={notification.type === 'success'}
-	class:bg-red-500={notification.type === 'error'}
+	class:bg-green-500={$notification.type === 'success'}
+	class:bg-red-500={$notification.type === 'error'}
 	transition:slide
 >
-	{notification.text}
+	{$notification.text}
 	<button aria-label="Close" class="absolute right-4" onclick={() => ($notification = null)}>
 		<svg
 			xmlns="http://www.w3.org/2000/svg"
