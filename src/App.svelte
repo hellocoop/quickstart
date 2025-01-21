@@ -57,17 +57,13 @@
 
 		if (sessionStorage.getItem('access_token')) {
 			try {
-				const res = await getProfile();
-				$data = res;
-
-				//DEBUG LOG
-				console.log('Session Storage:', JSON.stringify(sessionStorage, null, 2));
-				//DEBUG LOG
+				$data = await getProfile();
 			} catch (err) {
 				console.error(err);
 				sessionStorage.clear();
 			}
 		}
+		
 		mounted = true;
 	});
 
