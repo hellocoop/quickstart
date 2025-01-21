@@ -18,27 +18,32 @@
 	let sendTosUri = $state(),
 		sendPpUri = $state(),
 		sendImageUri = $state(),
-		sendDarkImageUri = $state();
+		sendDarkImageUri = $state(),
+		selectedAppID = $state(),
+		applicationName = $state();
 
 	//only show logo in UI if server is able to fetch image_uri or dark_image_uri passed via query params
 	let serverCanFetchLogo = $state(false);
 	let serverCanFetchDarkLogo = $state(false);
 
+	$effect(() => {
+		if ($data.currentPublisher) {
+			selectedAppID = $data.currentPublisher.applications?.[0]?.id || 'create';
+			applicationName = $data.currentPublisher.applications?.find(
+				(i) => i.name === placeholderAppName
+			)
+				? ''
+				: placeholderAppName;
+		}
+	});
+
 	//if wildcard_domain, only show existing apps with https://* enabled
-	let applications = $state(
+	const applications = $derived(
 		$data?.currentPublisher?.applications?.filter((i) =>
 			wildcardDomain ? i?.web?.dev?.wildcard_domain : true
 		)
 	);
-
-	let selectedAppID = $state(customAppName ? 'create' : applications?.[0]?.id || 'create');
-	let applicationName = $state(
-		$data?.currentPublisher?.applications?.find((i) => i.name === placeholderAppName)
-			? ''
-			: placeholderAppName
-	);
-
-	let _selectedAppData = $derived(
+	const _selectedAppData = $derived(
 		$data?.currentPublisher?.applications?.find((i) => i.id === selectedAppID) || {}
 	);
 
@@ -216,7 +221,9 @@
 						class="form-radio mt-1"
 						name="application_name"
 						value={application.id}
-						onchange={() => (selectedAppID = application.id)}
+						onchange={() => {
+							selectedAppID = application.id;
+						}}
 						checked={selectedAppID === application.id}
 					/>
 					<div class="ml-[1.7rem]">
@@ -232,7 +239,9 @@
 				class="form-radio mt-3"
 				name="application_name"
 				value="create"
-				onchange={() => (selectedAppID = 'create')}
+				onchange={() => {
+					selectedAppID = 'create';
+				}}
 				checked={'create' === selectedAppID}
 			/>
 			<div class="flex flex-1 flex-col">
@@ -243,7 +252,9 @@
 					name="application_name"
 					placeholder="enter application name"
 					value={applicationName}
-					onfocus={() => (selectedAppID = 'create')}
+					onfocus={() => {
+						selectedAppID = 'create';
+					}}
 					oninput={(e) => {
 						applicationName = e.target.value;
 						selectedAppID = 'create';

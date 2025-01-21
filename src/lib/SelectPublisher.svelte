@@ -22,14 +22,14 @@
 			<li class="flex items-center">
 				<input
 					onchange={changePublisher}
-					id="publisher_name"
+					id={publisher.id}
 					type="radio"
 					class="form-radio"
 					name="publisher_name"
 					value={publisher.id}
 					checked={checkedPublisherID === publisher.id}
 				/>
-				<label for="publisher_name" class="ml-[1.7rem] text-base">{publisher.name}</label>
+				<label for={publisher.id} class="ml-[1.7rem] text-base">{publisher.name}</label>
 			</li>
 		{/each}
 	</ul>

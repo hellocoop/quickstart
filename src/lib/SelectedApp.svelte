@@ -51,7 +51,7 @@
 					showCopiedTooltip = false;
 				}, 1000);
 			}}
-			class="group flex h-9 items-center justify-between rounded-md bg-charcoal px-3 text-left text-white dark:text-[#d4d4d4] font-mono"
+			class="group flex h-9 items-center justify-between rounded-md bg-charcoal px-3 text-left font-mono text-white dark:text-[#d4d4d4]"
 		>
 			{clientID}
 			<svg
@@ -82,7 +82,7 @@
 		<li><span class="-ml-1">Privacy Policy</span></li>
 	</ul>
 	<a
-		href={CONSOLE + "?client_id=" + clientID}
+		href={CONSOLE + '?client_id=' + clientID}
 		target="_blank"
 		class="mt-1.5 inline-flex items-center text-xl"
 	>
