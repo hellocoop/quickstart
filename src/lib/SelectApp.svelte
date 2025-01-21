@@ -44,7 +44,7 @@
 				await testServerImageFetch(sessionStorage.image_uri);
 				serverCanFetchLogo = true;
 			} catch (err) {
-				console.error('Server was unable to fetch ' + sessionStorage.image_uri);
+				console.error('Server was unable to fetch ' + sessionStorage.image_uri, err);
 			}
 		}
 		if (sessionStorage.dark_image_uri) {
@@ -52,7 +52,7 @@
 				await testServerImageFetch(sessionStorage.dark_image_uri);
 				serverCanFetchDarkLogo = true;
 			} catch (err) {
-				console.error('Server was unable to fetch ' + sessionStorage.dark_image_uri);
+				console.error('Server was unable to fetch ' + sessionStorage.dark_image_uri, err);
 			}
 		}
 	});
@@ -327,7 +327,7 @@
 						{#if sessionStorage.redirect_uri}
 							<div>
 								<label for="redirect_uri" class="text-sm opacity-60">Redirect URI(s)</label>
-								{#each sessionStorage.redirect_uri.split(' ') as redirect_uri, index}
+								{#each sessionStorage.redirect_uri.split(' ') as redirect_uri}
 									<span class="ml-6 block break-all text-sm">{redirect_uri}</span>
 								{/each}
 							</div>

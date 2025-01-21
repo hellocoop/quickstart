@@ -16,7 +16,7 @@
 	transition:slide
 >
 	{notification.text}
-	<button class="absolute right-4" on:click={() => dispatch('close')}>
+	<button aria-label="Close" class="absolute right-4" on:click={() => dispatch('close')}>
 		<svg
 			xmlns="http://www.w3.org/2000/svg"
 			class="h-5 w-5"

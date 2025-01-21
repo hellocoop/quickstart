@@ -40,7 +40,7 @@ export default [
 			'build/',
 			'.svelte-kit/',
 			'dist/',
-			'web/S3/',
+			'S3/',
 			'test-results/',
 			'*.md',
 			'src/**/*/Setup.svelte',
@@ -48,8 +48,7 @@ export default [
 			'cypress',
 			'rumTracker.js',
 			'assets/',
-			'playwright-report/',
-			'web/src/utils/ERROR.md.js'
+			'playwright-report/'
 		]
 	},
 	{

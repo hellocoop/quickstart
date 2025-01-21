@@ -68,7 +68,3 @@ function generateIdentity(source, alg) {
 	const hash = createHash(alg).update(source).digest().toString('base64');
 	return `${alg.toLowerCase()}-${hash}`;
 }
-
-function isHtmlAsset(obj) {
-	return obj.fileName.endsWith('.html') && obj.type === 'asset';
-}

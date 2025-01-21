@@ -83,18 +83,14 @@ const put = (path, data) => {
 };
 
 async function resizeImage(image_path) {
-	try {
-		const getImage = await fetch(image_path);
-		const blob = await getImage.blob();
-		const options = {
-			maxSizeMB: 0.14 //max size is 150kb
-			// useWebWorker: true
-		};
-		const compressedFile = await imageCompression(blob, options);
-		return compressedFile;
-	} catch (e) {
-		throw e;
-	}
+	const getImage = await fetch(image_path);
+	const blob = await getImage.blob();
+	const options = {
+		maxSizeMB: 0.14 //max size is 150kb
+		// useWebWorker: true
+	};
+	const compressedFile = await imageCompression(blob, options);
+	return compressedFile;
 }
 
 export {

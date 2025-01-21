@@ -234,7 +234,7 @@ class Footer extends HTMLElement {
 		}
 	}
 
-	attributeChangedCallback(name, oldValue, newValue) {
+	attributeChangedCallback(name) {
 		if (name === 'nosociallinks') {
 			const footerRef = this.shadow.getElementById('wc-footer');
 			footerRef.style.height = '3rem';

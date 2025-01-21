@@ -167,7 +167,7 @@
 </main>
 
 {#if mounted}
-	<wc-footer />
+	<wc-footer></wc-footer>
 {/if}
 
 <!-- DEBUG CREATE PUBLISHER CODE -->

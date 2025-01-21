@@ -10,20 +10,15 @@ const getAccessToken = async (code) => {
 		grant_type: 'authorization_code',
 		code_verifier
 	};
-	try {
-		const res = await fetch(TOKEN_ENDPOINT, {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/x-www-form-urlencoded'
-			},
-			body: new URLSearchParams(params).toString()
-		});
-		const data = await res.json();
-
-		return data.access_token;
-	} catch (err) {
-		throw err;
-	}
+	const res = await fetch(TOKEN_ENDPOINT, {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/x-www-form-urlencoded'
+		},
+		body: new URLSearchParams(params).toString()
+	});
+	const data = await res.json();
+	return data.access_token;
 };
 
 const getProfile = () => {
