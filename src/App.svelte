@@ -15,7 +15,6 @@
 
 	let mounted = $state(false);
 	onMount(async () => {
-		updateFavicon();
 		readWriteSessionStorageOp();
 
 		const fragmentParams = new URLSearchParams(window.location.hash.substring(1));
@@ -71,20 +70,6 @@
 		}
 		mounted = true;
 	});
-
-	function updateFavicon() {
-		const ref = document.querySelector("link[rel='icon']");
-		if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
-			ref.href = 'https://cdn.hello.coop/images/quickstart-favicon-dark.png';
-		}
-		window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (event) => {
-			if (event.matches) {
-				ref.href = 'https://cdn.hello.coop/images/quickstart-favicon-dark.png';
-			} else {
-				ref.href = 'https://cdn.hello.coop/images/quickstart-favicon-light.png';
-			}
-		});
-	}
 
 	let loginAjax = $state(false);
 	async function login() {
