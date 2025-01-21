@@ -1,5 +1,9 @@
 <script>
 	import { onMount } from 'svelte';
+	import { getAccessToken, getProfile } from './api.js';
+	import { data, notification, showSelectedApp, selectedAppData } from './store.js';
+	import { generateRandomString, pkceChallengeFromVerifier, readWriteSessionStorageOp } from './util.js';
+	import { AUTHORIZATION_SERVER } from './constants.js';
 	import Header from './lib/Header.svelte';
 	import Login from './lib/Login.svelte';
 	import CreatePublisher from './lib/CreatePublisher.svelte';
@@ -8,13 +12,8 @@
 	import SelectedApp from './lib/SelectedApp.svelte';
 	import PageLoadSpinner from './lib/PageLoadSpinner.svelte';
 	import Notification from './lib/Notification.svelte';
-	import { getAccessToken, getProfile } from './api.js';
-	import { data, notification, showSelectedApp, selectedAppData } from './store.js';
-	import { generateRandomString, pkceChallengeFromVerifier, readWriteSessionStorageOp } from './util.js';
-	import { AUTHORIZATION_SERVER } from './constants.js';
 
-	let mounted = false;
-
+	let mounted = $state(false);
 	onMount(async () => {
 		updateFavicon();
 		readWriteSessionStorageOp();
@@ -87,7 +86,7 @@
 		});
 	}
 
-	let loginAjax = false;
+	let loginAjax = $state(false);
 	async function login() {
 		try {
 			loginAjax = true;
