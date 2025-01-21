@@ -83,4 +83,6 @@ function readWriteSessionStorageOp() {
 	sessionStorage.removeItem('testData');
 }
 
-export { get, post, put, resizeImage, preventDefault, readWriteSessionStorageOp };
+const cleanUrl = () => window.history.replaceState({}, document.title, window.location.pathname);
+
+export { get, post, put, resizeImage, preventDefault, readWriteSessionStorageOp, cleanUrl };

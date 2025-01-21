@@ -50,7 +50,7 @@
 					showCopiedTooltip = false;
 				}, 1000);
 			}}
-			class="group flex h-9 items-center justify-between rounded-md bg-charcoal px-3 text-left text-white dark:text-[#d4d4d4]"
+			class="group flex h-9 items-center justify-between rounded-md bg-charcoal px-3 text-left text-white dark:text-[#d4d4d4] font-mono"
 		>
 			{clientID}
 			<svg

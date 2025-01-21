@@ -2,7 +2,7 @@
 	import { onMount } from 'svelte';
 	import { getAccessToken, getProfile } from './api.js';
 	import { data, notification, showSelectedApp, selectedAppData } from './store.js';
-	import { readWriteSessionStorageOp } from './util.js';
+	import { cleanUrl, readWriteSessionStorageOp } from './util.js';
 	import { AUTHORIZATION_SERVER, CONFIG } from './constants.js';
 	import { pkceChallenge } from '@hellocoop/helper-browser';
 	import Header from './lib/Header.svelte';
@@ -24,14 +24,11 @@
 			try {
 				const access_token = await getAccessToken(code);
 				sessionStorage.setItem('access_token', access_token);
-				window.location.replace('#');
-				if (typeof window.history.replaceState == 'function') {
-					history.replaceState({}, '', window.location.href.slice(0, -1));
-				}
 			} catch (err) {
 				console.error(err);
 				return;
 			} finally {
+				cleanUrl();
 				sessionStorage.removeItem('code_verifier');
 			}
 		}
@@ -50,9 +47,9 @@
 			console.log('Query Params:', JSON.stringify(logObj, null, 2));
 			//DEBUG LOG
 
-			window.history.pushState({}, document.title, '/');
-			login();
-			return;
+			cleanUrl();
+
+			return login();
 		}
 
 		if (sessionStorage.getItem('access_token')) {
