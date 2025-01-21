@@ -1,5 +1,5 @@
 import { ADMIN_SERVER } from './constants';
-import { notification } from './store';
+import { global } from './state.svelte.js';
 import imageCompression from 'browser-image-compression';
 
 const send = async ({ method, path, data }) => {
@@ -75,10 +75,10 @@ function readWriteSessionStorageOp() {
 	const testData = 'Next.js';
 	sessionStorage.setItem('testData', testData);
 	if (!sessionStorage.getItem('testData')) {
-		notification.set({
+		global.notification = {
 			text: 'Read/Write Operation to sessionStorage failed. Query Params would be ignored as a result.',
 			type: 'error'
-		});
+		};
 	}
 	sessionStorage.removeItem('testData');
 }

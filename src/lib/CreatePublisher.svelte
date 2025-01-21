@@ -7,7 +7,7 @@
 		postImage,
 		testServerImageFetch
 	} from '../api.js';
-	import { data, notification, showSelectedApp, selectedAppData } from '../store.js';
+	import { global } from '../state.svelte.js';
 	import { createAppBody, preventDefault } from '../util.js';
 
 	const customAppNameSuffix = sessionStorage.suffix;
@@ -18,13 +18,13 @@
 	const createdBy =
 		'quickstart' + (sessionStorage.integration ? `|${sessionStorage.integration}` : '');
 
-	let publisherName = $state(`${$data?.profile?.name}'s Team`);
+	let publisherName = $state(`${global.data?.profile?.name}'s Team`);
 	let sendTosUri = $state(!!customTosUri);
 	let sendPpUri = $state(!!customPpUri);
 	let sendImageUri = $state(!!sessionStorage.image_uri);
 	let sendDarkImageUri = $state(!!sessionStorage.dark_image_uri);
 	let applicationName = $state(
-		customAppName || `${$data?.profile?.name}'s ${customAppNameSuffix || 'Application'}`
+		customAppName || `${global.data?.profile?.name}'s ${customAppNameSuffix || 'Application'}`
 	);
 	//only show logo in UI if server is able to fetch image_uri or dark_image_uri passed via query params
 	let serverCanFetchLogo = $state(false);
@@ -116,13 +116,13 @@
 				uri.searchParams.set('client_id', client_id);
 				window.location.href = uri.href;
 			} else {
-				$showSelectedApp = true;
-				$selectedAppData = {
+				global.showSelectedApp = true;
+				global.selectedAppData = {
 					pub_name: publisherName,
 					app_name: applicationName,
 					client_id
 				};
-				$notification = {
+				global.notification = {
 					text: applicationName + ' was created',
 					type: 'success'
 				};

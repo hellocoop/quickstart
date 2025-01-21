@@ -3,7 +3,7 @@
 	import { slide } from 'svelte/transition';
 	import { preventDefault, createAppBody } from '../util.js';
 	import { postApplication, postImage, putApplication, testServerImageFetch } from '../api.js';
-	import { data, notification, showSelectedApp, selectedAppData } from '../store.js';
+	import { global } from '../state.svelte.js';
 
 	const customAppNameSuffix = sessionStorage.suffix;
 	const customAppName = sessionStorage.name;
@@ -11,7 +11,7 @@
 	const customPpUri = sessionStorage.pp_uri || null;
 	const wildcardDomain = sessionStorage.wildcard_domain == 'true';
 	const placeholderAppName =
-		customAppName || `${$data?.profile?.name}'s ${customAppNameSuffix || 'Application'}`;
+		customAppName || `${global.data?.profile?.name}'s ${customAppNameSuffix || 'Application'}`;
 	const createdBy =
 		'quickstart' + (sessionStorage.integration ? `|${sessionStorage.integration}` : '');
 
@@ -27,9 +27,9 @@
 	let serverCanFetchDarkLogo = $state(false);
 
 	$effect(() => {
-		if ($data.currentPublisher) {
-			selectedAppID = $data.currentPublisher.applications?.[0]?.id || 'create';
-			applicationName = $data.currentPublisher.applications?.find(
+		if (global.data.currentPublisher) {
+			selectedAppID = global.data.currentPublisher.applications?.[0]?.id || 'create';
+			applicationName = global.data.currentPublisher.applications?.find(
 				(i) => i.name === placeholderAppName
 			)
 				? ''
@@ -39,12 +39,12 @@
 
 	//if wildcard_domain, only show existing apps with https://* enabled
 	const applications = $derived(
-		$data?.currentPublisher?.applications?.filter((i) =>
+		global.data?.currentPublisher?.applications?.filter((i) =>
 			wildcardDomain ? i?.web?.dev?.wildcard_domain : true
 		)
 	);
 	const _selectedAppData = $derived(
-		$data?.currentPublisher?.applications?.find((i) => i.id === selectedAppID) || {}
+		global.data?.currentPublisher?.applications?.find((i) => i.id === selectedAppID) || {}
 	);
 
 	onMount(async () => {
@@ -79,7 +79,7 @@
 	async function createApp() {
 		const postAppBody = createAppBody(applicationName, wildcardDomain, createdBy);
 
-		const pubId = $data?.currentPublisher?.profile?.id;
+		const pubId = global.data?.currentPublisher?.profile?.id;
 
 		let appRes;
 		if (selectedAppID === 'create') {
@@ -166,25 +166,25 @@
 			if (response_uri) {
 				const uri = new URL(response_uri);
 				uri.searchParams.set('client_id', client_id);
-				
+
 				// clear session storage
 				const accessToken = sessionStorage.getItem('access_token');
-				sessionStorage.clear()
+				sessionStorage.clear();
 				sessionStorage.setItem('access_token', accessToken);
 
 				window.location.href = uri.href;
 			} else {
-				$showSelectedApp = true;
+				global.showSelectedApp = true;
 				const app_name =
 					selectedAppID === 'create'
 						? applicationName
-						: $data?.currentPublisher?.applications?.find((i) => i.id === client_id).name;
-				$selectedAppData = {
-					pub_name: $data?.currentPublisher?.profile?.name,
+						: global.data?.currentPublisher?.applications?.find((i) => i.id === client_id).name;
+				global.selectedAppData = {
+					pub_name: global.data?.currentPublisher?.profile?.name,
 					app_name,
 					client_id
 				};
-				$notification = {
+				global.notification = {
 					text: app_name + (selectedAppID === 'create' ? ' was created' : ' was selected'),
 					type: 'success'
 				};

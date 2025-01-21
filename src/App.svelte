@@ -1,7 +1,7 @@
 <script>
 	import { onMount } from 'svelte';
 	import { getAccessToken, getProfile } from './api.js';
-	import { data, notification, showSelectedApp, selectedAppData } from './store.js';
+	import { global } from './state.svelte.js';
 	import { cleanUrl, readWriteSessionStorageOp } from './util.js';
 	import { AUTHORIZATION_SERVER, CONFIG } from './constants.js';
 	import { pkceChallenge } from '@hellocoop/helper-browser';
@@ -57,7 +57,7 @@
 
 		if (sessionStorage.getItem('access_token')) {
 			try {
-				$data = await getProfile();
+				global.data = await getProfile();
 			} catch (err) {
 				console.error(err);
 				sessionStorage.clear();
@@ -90,28 +90,28 @@
 	<Header />
 {/if}
 
-{#if $notification != null}
+{#if global.notification != null}
 	<Notification />
 {/if}
 
 <main class="container m-12 mx-auto flex max-w-md flex-1 flex-col px-4">
 	{#if mounted}
-		{#if $showSelectedApp}
+		{#if global.showSelectedApp}
 			<SelectedApp
-				publisherName={$selectedAppData.pub_name}
-				applicationName={$selectedAppData.app_name}
-				clientID={$selectedAppData.client_id}
+				publisherName={global.selectedAppData.pub_name}
+				applicationName={global.selectedAppData.app_name}
+				clientID={global.selectedAppData.client_id}
 			/>
-		{:else if $data != null}
-			{#if !$data.publishers?.length}
+		{:else if global.data != null}
+			{#if !global.data.publishers?.length}
 				<CreatePublisher />
 			{/if}
 
-			{#if $data.publishers.length > 1}
+			{#if global.data.publishers.length > 1}
 				<SelectPublisher />
 			{/if}
 
-			{#if $data.currentPublisher != null}
+			{#if global.data.currentPublisher != null}
 				<SelectApp />
 			{/if}
 		{:else}
