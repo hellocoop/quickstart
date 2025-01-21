@@ -63,7 +63,7 @@
 				sessionStorage.clear();
 			}
 		}
-		
+
 		mounted = true;
 	});
 
