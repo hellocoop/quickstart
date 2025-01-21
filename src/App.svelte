@@ -2,8 +2,9 @@
 	import { onMount } from 'svelte';
 	import { getAccessToken, getProfile } from './api.js';
 	import { data, notification, showSelectedApp, selectedAppData } from './store.js';
-	import { generateRandomString, pkceChallengeFromVerifier, readWriteSessionStorageOp } from './util.js';
-	import { AUTHORIZATION_SERVER } from './constants.js';
+	import { readWriteSessionStorageOp } from './util.js';
+	import { AUTHORIZATION_SERVER, CONFIG } from './constants.js';
+	import { pkceChallenge } from '@hellocoop/helper-browser';
 	import Header from './lib/Header.svelte';
 	import Login from './lib/Login.svelte';
 	import CreatePublisher from './lib/CreatePublisher.svelte';
@@ -31,8 +32,7 @@
 				console.error(err);
 				return;
 			} finally {
-				sessionStorage.removeItem('pkce_code_verifier');
-				sessionStorage.removeItem('pkce_state');
+				sessionStorage.removeItem('code_verifier');
 			}
 		}
 
@@ -75,23 +75,13 @@
 	async function login() {
 		try {
 			loginAjax = true;
-			const state = generateRandomString();
-			sessionStorage.setItem('pkce_state', state);
-			const code_verifier = generateRandomString();
-			sessionStorage.setItem('pkce_code_verifier', code_verifier);
-			const code_challenge = await pkceChallengeFromVerifier(code_verifier);
+			const { code_verifier, code_challenge } = await pkceChallenge();
+			sessionStorage.setItem('code_verifier', code_verifier);
 			const uri = new URL(AUTHORIZATION_SERVER);
-			uri.searchParams.set('client_id', 'hello_quick_start');
-			uri.searchParams.set('redirect_uri', window.location.origin + '/');
-			uri.searchParams.set('response_type', 'code');
-			uri.searchParams.set('response_mode', 'fragment');
-			uri.searchParams.set('state', '');
-			uri.searchParams.set('code_challenge', encodeURIComponent(code_challenge));
-			uri.searchParams.set('code_challenge_method', 'S256');
-			uri.searchParams.set('scope', 'quickstart name email picture');
-			if (sessionStorage.provider_hint) {
+			uri.search = new URLSearchParams(CONFIG).toString();
+			uri.searchParams.set('code_challenge', code_challenge);
+			if (sessionStorage.provider_hint)
 				uri.searchParams.set('provider_hint', sessionStorage.provider_hint);
-			}
 			window.location.href = uri.href;
 		} catch (err) {
 			console.error(err);
@@ -105,7 +95,7 @@
 {/if}
 
 {#if $notification != null}
-	<Notification notification={$notification}/>
+	<Notification notification={$notification} />
 {/if}
 
 <main data-test="test-run-8" class="container m-12 mx-auto flex max-w-md flex-1 flex-col px-4">

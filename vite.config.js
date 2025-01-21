@@ -21,6 +21,7 @@ export default defineConfig({
 		hmr: {
 			clientPort: 443,
 			host: 'quickstart.' + process.env.HELLO_DOMAIN
-		}
+		},
+		allowedHosts: ['quickstart-web']
 	}
 });

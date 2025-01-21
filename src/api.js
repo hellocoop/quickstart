@@ -1,12 +1,12 @@
 import { get, post, put } from './util.js';
-import { ADMIN_SERVER, TOKEN_ENDPOINT } from './constants.js';
+import { ADMIN_SERVER, CONFIG, TOKEN_ENDPOINT } from './constants.js';
 
 const getAccessToken = async (code) => {
-	const code_verifier = sessionStorage.getItem('pkce_code_verifier');
+	const code_verifier = sessionStorage.getItem('code_verifier');
 	const params = {
 		code: code,
-		client_id: 'hello_quick_start',
-		redirect_uri: window.location.origin + '/',
+		client_id: CONFIG.client_id,
+		redirect_uri: CONFIG.redirect_uri,
 		grant_type: 'authorization_code',
 		code_verifier
 	};
