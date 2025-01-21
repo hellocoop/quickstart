@@ -16,6 +16,9 @@
 
 	let mounted = $state(false);
 	onMount(async () => {
+		//remove html spinner
+		document.querySelector('#load-spinner')?.remove();
+
 		readWriteSessionStorageOp();
 
 		const fragmentParams = new URLSearchParams(window.location.hash.substring(1));
