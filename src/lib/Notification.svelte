@@ -1,12 +1,10 @@
 <script>
 	import { slide } from 'svelte/transition';
-	import { createEventDispatcher } from 'svelte';
-	const dispatch = createEventDispatcher();
 
-	export let notification = {
+	let { notification = {
 		text: '',
-		type: 'success'
-	};
+		type: 'success',
+	} } = $props();
 </script>
 
 <div
@@ -16,7 +14,7 @@
 	transition:slide
 >
 	{notification.text}
-	<button aria-label="Close" class="absolute right-4" on:click={() => dispatch('close')}>
+	<button aria-label="Close" class="absolute right-4" onclick={() => $notification = null}>
 		<svg
 			xmlns="http://www.w3.org/2000/svg"
 			class="h-5 w-5"
