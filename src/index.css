@@ -1,6 +1,8 @@
 @tailwind base;
 
-html, body, #app {
+html,
+body,
+#app {
 	@apply h-full;
 }
 
@@ -8,43 +10,46 @@ body {
 	min-width: 320px;
 }
 
-#app{
+#app {
 	@apply flex flex-col;
 }
 
-a{
+a {
 	@apply hover:underline;
 }
 
-input[type=url]{
+input[type='url'] {
 	@apply text-charcoal dark:text-[#d4d4d4];
 }
 
-input[type=radio], input[type=checkbox] {
+input[type='radio'],
+input[type='checkbox'] {
 	@apply focus:ring-0 focus:ring-offset-0 hover:border-2 border-charcoal dark:border-[#808080];
 }
 
 @tailwind components;
 
-.form-input, .form-checkbox {
+.form-input,
+.form-checkbox {
 	@apply rounded-md bg-transparent;
 }
 
-.form-radio{
-	@apply bg-transparent text-charcoal dark:text-[#808080];	
+.form-radio {
+	@apply bg-transparent text-charcoal dark:text-[#808080];
 }
 
 .form-checkbox {
 	@apply dark:text-[#808080] text-charcoal w-4 h-4 rounded-sm;
 }
 
-.form-input{
+.form-input {
 	@apply ring-1 border-none hover:ring-2 focus:ring-2;
 	@apply ring-charcoal !important;
 	@apply dark:ring-[#808080] !important;
 }
 
-.form-input::placeholder, .form-textarea::placeholder{
+.form-input::placeholder,
+.form-textarea::placeholder {
 	@apply text-charcoal dark:text-[#d4d4d4] opacity-50;
 }
 

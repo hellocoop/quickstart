@@ -4,7 +4,7 @@ This repo contains the source code powering [https://quickstart.hello.coop/](htt
 
 Quickstart accelerates getting up and running with Hellō. It will read an existing client_id, or create one.
 
-The Quickstart SPA (Single Page App) is launched by sample apps to acquire a client_id. The developer will log into Hellō and authorize Quickstart to create / read publisher / apps. 
+The Quickstart SPA (Single Page App) is launched by sample apps to acquire a client_id. The developer will log into Hellō and authorize Quickstart to create / read publisher / apps.
 
 ## Launching Quickstart
 
@@ -32,12 +32,9 @@ On completion, the Quickstart app will load the `response_uri` with `client_id` 
 
     http://localhost:8000/quickstart?client_id=9ca12f47-f310-413b-b70f-4428d9448e8d
 
-
 ## Quickstart Developer Experience
 
 If the developer has not registered any applications, they will be prompted with a Publisher Name "John Smith's Team" and an Application Name "John Smith's Application". If a `suffix` is provided (eg. "Next.js"), then the prompt will be "John Smith's Next.js". Alternatively, the developer will choose an existing application or create a new one with the same prefilled prompt.
-
-
 
 ## Sample App Response Developer Experience
 

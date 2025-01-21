@@ -3,8 +3,8 @@ name: Sync content with S3 Staging
 on:
   workflow_dispatch: # for testing / manually running workflows via github ui
   pull_request_target: # pr targeting main was closed -- we check merge status in stage_check job below
-    types: [ closed ]
-    branches: [ main ]
+    types: [closed]
+    branches: [main]
 
 jobs:
   stage_check: # only stage if pr was merged with main or workflow triggered manually
@@ -20,7 +20,7 @@ jobs:
     needs: stage_check
     uses: hellocoop/tools/.github/workflows/code-deploy-client.yml@main
     with:
-      AWS_ACCOUNT: ${{ vars.HELLO_STAGING_AWS }} # set at org level 
+      AWS_ACCOUNT: ${{ vars.HELLO_STAGING_AWS }} # set at org level
       STACK: QuickstartStack
       WORKING_DIR: .
       TARGET: main
