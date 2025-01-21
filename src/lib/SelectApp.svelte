@@ -166,6 +166,12 @@
 			if (response_uri) {
 				const uri = new URL(response_uri);
 				uri.searchParams.set('client_id', client_id);
+				
+				// clear session storage
+				const accessToken = sessionStorage.getItem('access_token');
+				sessionStorage.clear()
+				sessionStorage.setItem('access_token', accessToken);
+
 				window.location.href = uri.href;
 			} else {
 				$showSelectedApp = true;
