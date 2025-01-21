@@ -102,12 +102,12 @@
 				applicationName={global.selectedAppData.app_name}
 				clientID={global.selectedAppData.client_id}
 			/>
-		{:else if global.data != null}
+		{:else if global.data?.profile}
 			{#if !global.data.publishers?.length}
 				<CreatePublisher />
 			{/if}
 
-			{#if global.data.publishers.length > 1}
+			{#if global.data.publishers?.length > 1}
 				<SelectPublisher />
 			{/if}
 
