@@ -1,5 +1,6 @@
 <script>
 	import { fly } from 'svelte/transition';
+	import { CONSOLE } from '../constants.js';
 
 	let { publisherName = '', applicationName = '', clientID = '' } = $props();
 
@@ -81,7 +82,7 @@
 		<li><span class="-ml-1">Privacy Policy</span></li>
 	</ul>
 	<a
-		href="https://console.hello.coop"
+		href={CONSOLE + "?client_id=" + clientID}
 		target="_blank"
 		class="mt-1.5 inline-flex items-center text-xl"
 	>
