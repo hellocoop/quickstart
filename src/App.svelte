@@ -10,7 +10,7 @@
 	import Notification from './lib/Notification.svelte';
 	import { getAccessToken, getProfile } from './api.js';
 	import { data, notification, showSelectedApp, selectedAppData } from './store.js';
-	import { generateRandomString, pkceChallengeFromVerifier } from './util.js';
+	import { generateRandomString, pkceChallengeFromVerifier, readWriteSessionStorageOp } from './util.js';
 	import { AUTHORIZATION_SERVER } from './constants.js';
 
 	let mounted = false;
@@ -72,20 +72,6 @@
 		}
 		mounted = true;
 	});
-
-	function readWriteSessionStorageOp() {
-		//Check if browser supports writing and reading from session storage
-		//Found an edge case where Brave ignored values with "."
-		const testData = 'Next.js';
-		sessionStorage.setItem('testData', testData);
-		if (!sessionStorage.getItem('testData')) {
-			$notification = {
-				text: 'Read/Write Operation to sessionStorage failed. Query Params would be ignored as a result.',
-				type: 'error'
-			};
-		}
-		sessionStorage.removeItem('testData');
-	}
 
 	function updateFavicon() {
 		const ref = document.querySelector("link[rel='icon']");
@@ -169,15 +155,3 @@
 {#if mounted}
 	<wc-footer></wc-footer>
 {/if}
-
-<!-- DEBUG CREATE PUBLISHER CODE -->
-<!-- <div class="absolute bottom-20">
-  <button on:click={async()=>{
-
-    const pubRes = await postPublisher({
-      name: 'asdfasdfasdsdf'
-    })
-  }
-  }>debug create publisher</button>
-  <input type="text"/>
-</div> -->

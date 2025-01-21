@@ -100,6 +100,20 @@ const preventDefault = (fn) => {
 	};
 };
 
+function readWriteSessionStorageOp() {
+	//Check if browser supports writing and reading from session storage
+	//Found an edge case where Brave ignored values with "."
+	const testData = 'Next.js';
+	sessionStorage.setItem('testData', testData);
+	if (!sessionStorage.getItem('testData')) {
+		$notification = {
+			text: 'Read/Write Operation to sessionStorage failed. Query Params would be ignored as a result.',
+			type: 'error'
+		};
+	}
+	sessionStorage.removeItem('testData');
+}
+
 export {
 	generateRandomString,
 	sha256,
@@ -109,5 +123,6 @@ export {
 	post,
 	put,
 	resizeImage,
-	preventDefault
+	preventDefault,
+	readWriteSessionStorageOp
 };
