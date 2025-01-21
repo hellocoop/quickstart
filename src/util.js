@@ -93,6 +93,13 @@ async function resizeImage(image_path) {
 	return compressedFile;
 }
 
+const preventDefault = (fn) => {
+	return function (event) {
+		event.preventDefault();
+		fn.call(this, event);
+	};
+};
+
 export {
 	generateRandomString,
 	sha256,
@@ -101,5 +108,6 @@ export {
 	get,
 	post,
 	put,
-	resizeImage
+	resizeImage,
+	preventDefault
 };

@@ -8,29 +8,27 @@
 		testServerImageFetch
 	} from '../api.js';
 	import { data, notification, showSelectedApp, selectedAppData } from '../store.js';
+	import { preventDefault } from '../util.js';
 
-	let publisherName = `${$data?.profile?.name}'s Team`;
 	const customAppNameSuffix = sessionStorage.suffix;
 	const customAppName = sessionStorage.name;
 	const customTosUri = sessionStorage.tos_uri || null;
 	const customPpUri = sessionStorage.pp_uri || null;
 	const wildcardDomain = sessionStorage.wildcard_domain == 'true';
+	const createdBy =
+		'quickstart' + (sessionStorage.integration ? `|${sessionStorage.integration}` : '');
 
-	let sendTosUri = !!customTosUri;
-	let sendPpUri = !!customPpUri;
-	let sendImageUri = !!sessionStorage.image_uri;
-	let sendDarkImageUri = !!sessionStorage.dark_image_uri;
-
-	let createdBy = 'quickstart';
-	if (sessionStorage.integration) {
-		createdBy += `|${sessionStorage.integration}`;
-	}
-	let applicationName =
-		customAppName || `${$data?.profile?.name}'s ${customAppNameSuffix || 'Application'}`;
-
+	let publisherName = $state(`${$data?.profile?.name}'s Team`);
+	let sendTosUri = $state(!!customTosUri);
+	let sendPpUri = $state(!!customPpUri);
+	let sendImageUri = $state(!!sessionStorage.image_uri);
+	let sendDarkImageUri = $state(!!sessionStorage.dark_image_uri);
+	let applicationName = $state(
+		customAppName || `${$data?.profile?.name}'s ${customAppNameSuffix || 'Application'}`
+	);
 	//only show logo in UI if server is able to fetch image_uri or dark_image_uri passed via query params
-	let serverCanFetchLogo = false;
-	let serverCanFetchDarkLogo = false;
+	let serverCanFetchLogo = $state(false);
+	let serverCanFetchDarkLogo = $state(false);
 
 	onMount(async () => {
 		if (sessionStorage.image_uri) {
@@ -51,7 +49,7 @@
 		}
 	});
 
-	let createPubAppAjax = false;
+	let createPubAppAjax = $state(false);
 	async function createPubApp() {
 		let client_id;
 		try {
@@ -151,7 +149,7 @@
 </script>
 
 <h1 class="text-lg font-semibold">Create Publisher & Application</h1>
-<form on:submit|preventDefault={createPubApp} class="mt-4">
+<form onsubmit={preventDefault(createPubApp)} class="mt-4">
 	<div class="flex flex-col">
 		<label for="publisher_name" class="mb-1 text-sm opacity-80">Publisher Name</label>
 		<input

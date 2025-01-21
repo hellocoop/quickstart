@@ -4,7 +4,11 @@
 	<span class="text-lg font-bold">Hellō Quickstart</span>
 	<ul>
 		<li>
-			<a href="https://www.hello.dev/docs/" target="_blank" class="inline-flex items-center">
+			<a
+				href="https://www.hello.dev/docs/"
+				target="_blank"
+				class="inline-flex items-center text-sm"
+			>
 				<span>Documentation</span>
 				<svg
 					xmlns="http://www.w3.org/2000/svg"

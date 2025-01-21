@@ -2,7 +2,7 @@
 	import { getPublisher } from '../api.js';
 	import { data } from '../store.js';
 
-	$: checkedPublisherID = $data?.currentPublisher?.profile?.id;
+	const checkedPublisherID = $derived($data?.currentPublisher?.profile?.id);
 
 	const changePublisher = async (e) => {
 		try {
@@ -21,7 +21,7 @@
 		{#each $data.publishers as publisher (publisher.id)}
 			<li class="flex items-center">
 				<input
-					on:change={changePublisher}
+					onchange={changePublisher}
 					id="publisher_name"
 					type="radio"
 					class="form-radio"

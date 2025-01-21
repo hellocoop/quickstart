@@ -1,6 +1,7 @@
 <script>
 	import { onMount } from 'svelte';
 	import { slide } from 'svelte/transition';
+	import { preventDefault } from '../util.js';
 	import { postApplication, postImage, putApplication, testServerImageFetch } from '../api.js';
 	import { data, notification, showSelectedApp, selectedAppData } from '../store.js';
 
@@ -9,34 +10,37 @@
 	const customTosUri = sessionStorage.tos_uri || null;
 	const customPpUri = sessionStorage.pp_uri || null;
 	const wildcardDomain = sessionStorage.wildcard_domain == 'true';
-
-	//if wildcard_domain, only show existing apps with https://* enabled
-	$: applications = $data?.currentPublisher?.applications?.filter((i) =>
-		wildcardDomain ? i?.web?.dev?.wildcard_domain : true
-	);
-
-	let createdBy = 'quickstart';
-	if (sessionStorage.integration) {
-		createdBy += `|${sessionStorage.integration}`;
-	}
-
 	const placeholderAppName =
 		customAppName || `${$data?.profile?.name}'s ${customAppNameSuffix || 'Application'}`;
-	$: selectedAppID = customAppName ? 'create' : applications?.[0]?.id || 'create';
-	let applicationName = $data?.currentPublisher?.applications?.find(
-		(i) => i.name === placeholderAppName
-	)
-		? ''
-		: placeholderAppName;
+	const createdBy =
+		'quickstart' + (sessionStorage.integration ? `|${sessionStorage.integration}` : '');
 
-	$: _selectedAppData =
-		$data?.currentPublisher?.applications?.find((i) => i.id === selectedAppID) || {};
-
-	let sendTosUri, sendPpUri, sendImageUri, sendDarkImageUri;
+	let sendTosUri = $state(),
+		sendPpUri = $state(),
+		sendImageUri = $state(),
+		sendDarkImageUri = $state();
 
 	//only show logo in UI if server is able to fetch image_uri or dark_image_uri passed via query params
-	let serverCanFetchLogo = false;
-	let serverCanFetchDarkLogo = false;
+	let serverCanFetchLogo = $state(false);
+	let serverCanFetchDarkLogo = $state(false);
+
+	//if wildcard_domain, only show existing apps with https://* enabled
+	let applications = $state(
+		$data?.currentPublisher?.applications?.filter((i) =>
+			wildcardDomain ? i?.web?.dev?.wildcard_domain : true
+		)
+	);
+
+	let selectedAppID = $state(customAppName ? 'create' : applications?.[0]?.id || 'create');
+	let applicationName = $state(
+		$data?.currentPublisher?.applications?.find((i) => i.name === placeholderAppName)
+			? ''
+			: placeholderAppName
+	);
+
+	let _selectedAppData = $derived(
+		$data?.currentPublisher?.applications?.find((i) => i.id === selectedAppID) || {}
+	);
 
 	onMount(async () => {
 		if (sessionStorage.image_uri) {
@@ -57,13 +61,15 @@
 		}
 	});
 
-	$: selectedAppID,
-		(() => {
-			sendTosUri = !!customTosUri || !!_selectedAppData?.tos_uri;
-			sendPpUri = !!customPpUri || !!_selectedAppData?.pp_uri;
-			sendImageUri = !!sessionStorage.image_uri || !!_selectedAppData?.image_uri;
-			sendDarkImageUri = !!sessionStorage.dark_image_uri || !!_selectedAppData?.dark_image_uri;
-		})();
+	$effect(() => {
+		selectedAppID,
+			(() => {
+				sendTosUri = !!customTosUri || !!_selectedAppData?.tos_uri;
+				sendPpUri = !!customPpUri || !!_selectedAppData?.pp_uri;
+				sendImageUri = !!sessionStorage.image_uri || !!_selectedAppData?.image_uri;
+				sendDarkImageUri = !!sessionStorage.dark_image_uri || !!_selectedAppData?.dark_image_uri;
+			})();
+	});
 
 	async function createApp() {
 		const postAppBody = {
@@ -158,7 +164,7 @@
 		return await putApplication(pubId, appRes.id, appRes);
 	}
 
-	let submitAjax = false;
+	let submitAjax = $state(false);
 	async function submit() {
 		let client_id;
 		try {
@@ -199,7 +205,7 @@
 {:else}
 	<h1 class="text-lg font-semibold">Create Application</h1>
 {/if}
-<form on:submit|preventDefault={submit} class="mt-4">
+<form onsubmit={preventDefault(submit)} class="mt-4">
 	<ul class="space-y-2">
 		{#if applications?.length}
 			{#each applications as application (application.id)}
@@ -210,7 +216,7 @@
 						class="form-radio mt-1"
 						name="application_name"
 						value={application.id}
-						on:change={() => (selectedAppID = application.id)}
+						onchange={() => (selectedAppID = application.id)}
 						checked={selectedAppID === application.id}
 					/>
 					<div class="ml-[1.7rem]">
@@ -226,7 +232,7 @@
 				class="form-radio mt-3"
 				name="application_name"
 				value="create"
-				on:change={() => (selectedAppID = 'create')}
+				onchange={() => (selectedAppID = 'create')}
 				checked={'create' === selectedAppID}
 			/>
 			<div class="flex flex-1 flex-col">
@@ -237,8 +243,8 @@
 					name="application_name"
 					placeholder="enter application name"
 					value={applicationName}
-					on:focus={() => (selectedAppID = 'create')}
-					on:input={(e) => {
+					onfocus={() => (selectedAppID = 'create')}
+					oninput={(e) => {
 						applicationName = e.target.value;
 						selectedAppID = 'create';
 					}}
@@ -251,7 +257,7 @@
 								<div class="flex items-center">
 									<input
 										checked={sendTosUri}
-										on:change={() => (sendTosUri = !sendTosUri)}
+										onchange={() => (sendTosUri = !sendTosUri)}
 										type="checkbox"
 										id="terms-of-service"
 										class="form-checkbox"
@@ -269,7 +275,7 @@
 								<div class="flex items-center">
 									<input
 										checked={sendPpUri}
-										on:change={() => (sendPpUri = !sendPpUri)}
+										onchange={() => (sendPpUri = !sendPpUri)}
 										type="checkbox"
 										id="privacy-policy"
 										class="form-checkbox"
@@ -287,7 +293,7 @@
 								<div class="flex items-center">
 									<input
 										checked={sendImageUri}
-										on:change={() => (sendImageUri = !sendImageUri)}
+										onchange={() => (sendImageUri = !sendImageUri)}
 										type="checkbox"
 										id="logo-light-mode"
 										class="form-checkbox"
@@ -307,7 +313,7 @@
 								<div class="flex items-center">
 									<input
 										checked={sendDarkImageUri}
-										on:change={() => (sendDarkImageUri = !sendDarkImageUri)}
+										onchange={() => (sendDarkImageUri = !sendDarkImageUri)}
 										type="checkbox"
 										id="logo-dark-mode"
 										class="form-checkbox"

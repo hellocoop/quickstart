@@ -1,10 +1,9 @@
 <script>
 	import { fly } from 'svelte/transition';
-	export let publisherName = '';
-	export let applicationName = '';
-	export let clientID = '';
 
-	let showCopiedTooltip = false;
+	let { publisherName = '', applicationName = '', clientID = '' } = $props();
+
+	let showCopiedTooltip = $state(false);
 </script>
 
 <div>
@@ -44,7 +43,7 @@
 			>
 		{/if}
 		<button
-			on:click={async () => {
+			onclick={async () => {
 				showCopiedTooltip = true;
 				await navigator.clipboard.writeText(clientID);
 				setTimeout(() => {

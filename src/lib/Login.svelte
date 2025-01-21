@@ -1,22 +1,5 @@
 <script>
-	import { onMount } from 'svelte';
-
-	export let login = () => {};
-	export let loginAjax = false;
-	let darkMode = true;
-
-	onMount(() => {
-		if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
-			darkMode = false;
-		}
-		window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (event) => {
-			if (event.matches) {
-				darkMode = true;
-			} else {
-				darkMode = false;
-			}
-		});
-	});
+	let { login = () => {}, loginAjax = false } = $props();
 </script>
 
 <h1 class="text-center text-2xl font-semibold">Quickstart App</h1>
@@ -26,11 +9,10 @@
 </p>
 
 <button
-	on:click={login}
+	onclick={login}
 	disabled={loginAjax}
-	class="hello-btn-black-and-static mx-auto mt-12 w-56"
+	class="hello-btn hello-btn-black-and-static hello-btn-hover-flare mx-auto mt-12 w-56"
 	class:hello-btn-loader={loginAjax}
-	class:hello-btn-hover-flare={darkMode}
 >
 	ō&nbsp;&nbsp;&nbsp;Continue with Hellō
 </button>
