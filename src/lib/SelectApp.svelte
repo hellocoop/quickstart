@@ -1,7 +1,7 @@
 <script>
 	import { onMount } from 'svelte';
 	import { slide } from 'svelte/transition';
-	import { preventDefault } from '../util.js';
+	import { preventDefault, createAppBody } from '../util.js';
 	import { postApplication, postImage, putApplication, testServerImageFetch } from '../api.js';
 	import { data, notification, showSelectedApp, selectedAppData } from '../store.js';
 
@@ -77,25 +77,7 @@
 	});
 
 	async function createApp() {
-		const postAppBody = {
-			name: applicationName,
-			tos_uri: null,
-			pp_uri: null,
-			image_uri: null,
-			dark_image_uri: null,
-			web: {
-				dev: {
-					localhost: true,
-					'127.0.0.1': true,
-					wildcard_domain: wildcardDomain,
-					redirect_uris: []
-				},
-				prod: {
-					redirect_uris: []
-				}
-			},
-			createdBy
-		};
+		const postAppBody = createAppBody(applicationName, wildcardDomain, createdBy);
 
 		const pubId = $data?.currentPublisher?.profile?.id;
 

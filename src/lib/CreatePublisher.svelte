@@ -8,7 +8,7 @@
 		testServerImageFetch
 	} from '../api.js';
 	import { data, notification, showSelectedApp, selectedAppData } from '../store.js';
-	import { preventDefault } from '../util.js';
+	import { createAppBody, preventDefault } from '../util.js';
 
 	const customAppNameSuffix = sessionStorage.suffix;
 	const customAppName = sessionStorage.name;
@@ -57,24 +57,7 @@
 			const pubRes = await postPublisher({
 				name: publisherName
 			});
-			const postAppBody = {
-				name: applicationName,
-				tos_uri: null,
-				pp_uri: null,
-				image_uri: null,
-				web: {
-					dev: {
-						localhost: true,
-						'127.0.0.1': true,
-						wildcard_domain: wildcardDomain,
-						redirect_uris: []
-					},
-					prod: {
-						redirect_uris: []
-					}
-				},
-				createdBy
-			};
+			const postAppBody = createAppBody(applicationName, wildcardDomain, createdBy);
 			if (sendTosUri) {
 				postAppBody.tos_uri = customTosUri;
 			}

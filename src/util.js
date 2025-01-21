@@ -83,6 +83,36 @@ function readWriteSessionStorageOp() {
 	sessionStorage.removeItem('testData');
 }
 
+function createAppBody(name, wildcard_domain, createdBy) {
+	return {
+		name,
+		tos_uri: null,
+		pp_uri: null,
+		image_uri: null,
+		web: {
+			dev: {
+				localhost: true,
+				'127.0.0.1': true,
+				wildcard_domain,
+				redirect_uris: []
+			},
+			prod: {
+				redirect_uris: []
+			}
+		},
+		createdBy
+	};
+}
+
 const cleanUrl = () => window.history.replaceState({}, document.title, window.location.pathname);
 
-export { get, post, put, resizeImage, preventDefault, readWriteSessionStorageOp, cleanUrl };
+export {
+	get,
+	post,
+	put,
+	resizeImage,
+	preventDefault,
+	readWriteSessionStorageOp,
+	cleanUrl,
+	createAppBody
+};
