@@ -23,6 +23,6 @@ jobs:
       AWS_ACCOUNT: ${{ vars.HELLO_STAGING_AWS }} # set at org level
       STACK: QuickstartStack
       WORKING_DIR: .
-      TARGET: main
+      TARGET_BRANCH: main
       DOMAIN: quickstart.hello-staging.net # for version comparison
       BUILD_DIR: ./S3

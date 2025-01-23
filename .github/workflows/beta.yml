@@ -14,6 +14,6 @@ jobs:
       AWS_ACCOUNT: ${{ vars.HELLO_BETA_AWS }} # set at org level
       STACK: QuickstartStack
       BUILD_CMD: npm run build
-      TARGET: beta
+      TARGET_BRANCH: beta
       DOMAIN: quickstart.hello-beta.net # for version comparison
       BUILD_DIR: ./S3
