@@ -1,8 +1,8 @@
 class Footer extends HTMLElement {
-    constructor() {
-      super()
-      this.shadow = this.attachShadow({ mode: "open" })
-      this.shadow.innerHTML = `
+	constructor() {
+		super();
+		this.shadow = this.attachShadow({ mode: 'open' });
+		this.shadow.innerHTML = `
         <head>
           <meta charset="utf-8"/>
         </head>
@@ -185,11 +185,6 @@ class Footer extends HTMLElement {
                 </a>
               </li>
               <li>
-                <a href="https://verified.coop/@HelloCoop" target="_blank" rel="me">
-                  <img src="https://cdn.hello.coop/images/mastodon-icon.svg" alt="Mastodon" height="16" width="16"/>
-                </a>
-              </li>
-              <li>
                 <a href="https://www.twitter.com/HelloCoop" target="_blank" aria-label="Go to Twitter page" rel="me">
                   <img src="https://cdn.hello.coop/images/twitter-icon.svg" alt="Twitter" height="16" width="16"/>
                   </a>
@@ -217,46 +212,44 @@ class Footer extends HTMLElement {
             </ul>
           </div>
         </footer>
-      `
-    }
-  
-    get nosociallinks() {
-      return this.getAttribute("nosociallinks")
-    }
-  
-    static get observedAttributes() {
-      return ["nosociallinks"]
-    }
-  
-    connectedCallback() {
-      if (window.location.host === "www.hello.coop") {
-        const fromHelloRef = this.shadow.getElementById("from-hello")
-        fromHelloRef.style.display = "none"
-        if (window.innerWidth < 968) {
-          const footerRef = this.shadow.getElementById("wc-footer")
-          footerRef.style.height = "4rem"
-        }
-      }
-    }
-  
-    attributeChangedCallback(name, oldValue, newValue) {
-      if (name === "nosociallinks") {
-        const footerRef = this.shadow.getElementById("wc-footer")
-        footerRef.style.height = "3rem"
-        footerRef.style.padding = "0"
-        const footerContainerRef = this.shadow.getElementById(
-          "wc-footer-content-container"
-        )
-        footerContainerRef.style.justifyContent = "center"
-        const socialLinksRef = this.shadow.getElementById("social-links")
-        socialLinksRef.style.display = "none"
-        const fromHello = this.shadow.getElementById("from-hello")
-        fromHello.style.display = "none"
-        const linksRef = this.shadow.getElementById("links")
-        linksRef.style.width = "100%"
-        linksRef.style.justifyContent = "center"
-      }
-    }
-  }
-  
-  customElements.define("wc-footer", Footer)
+      `;
+	}
+
+	get nosociallinks() {
+		return this.getAttribute('nosociallinks');
+	}
+
+	static get observedAttributes() {
+		return ['nosociallinks'];
+	}
+
+	connectedCallback() {
+		if (window.location.host === 'www.hello.coop') {
+			const fromHelloRef = this.shadow.getElementById('from-hello');
+			fromHelloRef.style.display = 'none';
+			if (window.innerWidth < 968) {
+				const footerRef = this.shadow.getElementById('wc-footer');
+				footerRef.style.height = '4rem';
+			}
+		}
+	}
+
+	attributeChangedCallback(name) {
+		if (name === 'nosociallinks') {
+			const footerRef = this.shadow.getElementById('wc-footer');
+			footerRef.style.height = '3rem';
+			footerRef.style.padding = '0';
+			const footerContainerRef = this.shadow.getElementById('wc-footer-content-container');
+			footerContainerRef.style.justifyContent = 'center';
+			const socialLinksRef = this.shadow.getElementById('social-links');
+			socialLinksRef.style.display = 'none';
+			const fromHello = this.shadow.getElementById('from-hello');
+			fromHello.style.display = 'none';
+			const linksRef = this.shadow.getElementById('links');
+			linksRef.style.width = '100%';
+			linksRef.style.justifyContent = 'center';
+		}
+	}
+}
+
+customElements.define('wc-footer', Footer);

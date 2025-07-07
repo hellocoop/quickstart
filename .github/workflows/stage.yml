@@ -1,19 +1,28 @@
 name: Sync content with S3 Staging
 
 on:
-  workflow_dispatch:
-  pull_request_target:
-    types: [ closed ]
-    branches: [ main ]
+  workflow_dispatch: # for testing / manually running workflows via github ui
+  pull_request_target: # pr targeting main was closed -- we check merge status in stage_check job below
+    types: [closed]
+    branches: [main]
 
 jobs:
-  sync:
+  stage_check: # only stage if pr was merged with main or workflow triggered manually
     if: github.event.pull_request.merged == true || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Check Stage Conditions
+        run: echo "stage_check passed, proceeding to deploy to staging"
+
+  # below jobs run only if stage_check passes
+
+  sync:
+    needs: stage_check
     uses: hellocoop/tools/.github/workflows/code-deploy-client.yml@main
     with:
-      AWS_ACCOUNT: ${{ vars.HELLO_STAGING_AWS }} # set at org level 
+      AWS_ACCOUNT: ${{ vars.HELLO_STAGING_AWS }} # set at org level
       STACK: QuickstartStack
-      BUILD_CMD: npm run build
-      TARGET: main
-      DOMAIN: quickstart.hello-staging.net # for version comparison      
+      WORKING_DIR: .
+      TARGET_BRANCH: main
+      DOMAIN: quickstart.hello-staging.net # for version comparison
       BUILD_DIR: ./S3

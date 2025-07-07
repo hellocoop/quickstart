@@ -1,34 +1,35 @@
 {
-  "name": "src",
-  "private": true,
-  "version": "2024.5.8",
-  "type": "module",
-  "scripts": {
-    "dev": "vite",
-    "build": "vite build --sourcemap true",
-    "postinstall": "./scripts/pre-requisites.sh",
-    "build:prod": "vite build",
-    "preview": "vite preview",
-    "test": "echo \"Error: no test specified\" && exit 0",
-    "pr": "./scripts/pr.sh",
-    "rebase": "git pull origin main --rebase",
-    "review": "npm run rebase && npm run test && npm run pr"
-  },
-  "engines": {
-    "node": "~18",
-    "npm": "~10"
-  },
-  "devDependencies": {
-    "@sveltejs/vite-plugin-svelte": "^2.4.1",
-    "@tailwindcss/forms": "^0.5.2",
-    "autoprefixer": "^10.4.7",
-    "browser-image-compression": "^2.0.0",
-    "chalk": "^5.3.0",
-    "cheerio": "^1.0.0-rc.12",
-    "node-fetch": "^3.3.2",
-    "postcss": "^8.4.14",
-    "svelte": "^3.59.1",
-    "tailwindcss": "^3.0.24",
-    "vite": "^4.3.9"
-  }
+	"name": "quickstart",
+	"version": "2025.7.1",
+	"type": "module",
+	"scripts": {
+		"dev": "vite",
+		"build": "vite build --sourcemap true",
+		"build:prod": "vite build",
+		"preview": "vite preview",
+		"lint": "prettier --check . && eslint . --fix",
+		"format": "prettier --write .",
+		"test": "echo \"Error: no test specified\" && exit 0"
+	},
+	"devDependencies": {
+		"@hellocoop/helper-browser": "^2.5.1",
+		"@sveltejs/vite-plugin-svelte": "^5.0.3",
+		"@tailwindcss/forms": "^0.5.10",
+		"autoprefixer": "^10.4.20",
+		"browser-image-compression": "^2.0.2",
+		"chalk": "^5.4.1",
+		"cheerio": "^1.0.0",
+		"eslint": "^9.18.0",
+		"eslint-config-prettier": "^10.0.1",
+		"eslint-plugin-import": "^2.31.0",
+		"eslint-plugin-svelte": "^2.46.1",
+		"node-fetch": "^3.3.2",
+		"postcss": "^8.5.1",
+		"prettier": "^3.4.2",
+		"prettier-plugin-svelte": "^3.3.3",
+		"prettier-plugin-tailwindcss": "^0.6.10",
+		"svelte": "^5.19.0",
+		"tailwindcss": "^3.4.17",
+		"vite": "^6.0.10"
+	}
 }
