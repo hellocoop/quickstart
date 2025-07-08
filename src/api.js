@@ -3,6 +3,9 @@ import { ADMIN_SERVER, CONFIG, TOKEN_ENDPOINT } from './constants.js';
 
 const getAccessToken = async (code) => {
 	const code_verifier = sessionStorage.getItem('code_verifier');
+	if (!code_verifier) {
+		throw new Error('Code verifier not found');
+	}
 	const params = {
 		code: code,
 		client_id: CONFIG.client_id,
