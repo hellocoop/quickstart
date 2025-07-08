@@ -26,10 +26,16 @@
 		if (code) {
 			try {
 				const access_token = await getAccessToken(code);
+				if (!access_token) {
+					throw new Error('Access token not found');
+				}
 				sessionStorage.setItem('access_token', access_token);
 			} catch (err) {
 				console.error(err);
-				return;
+				global.notification = {
+					text: 'Something went wrong. Please try again.',
+					type: 'error'
+				};
 			} finally {
 				cleanUrl();
 				sessionStorage.removeItem('code_verifier');
