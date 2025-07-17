@@ -36,7 +36,7 @@ On completion, the Quickstart app will load the `response_uri` with `client_id` 
 
 If the developer has not registered any applications, they will be prompted with a Publisher Name "John Smith's Team" and an Application Name "John Smith's Application". If a `suffix` is provided (eg. "Next.js"), then the prompt will be "John Smith's Next.js". Alternatively, the developer will choose an existing application or create a new one with the same prefilled prompt.
 
-## Sample App Response Developer Experience
+## Sample App Response Developer Experience 
 
 If possible, the sample app will have a link to test out the sample app, as well as inform the developer that they can update their Hellō application at https://console.hello.coop
 
