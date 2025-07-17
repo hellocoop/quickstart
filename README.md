@@ -22,7 +22,7 @@ Load `https://quickstart.hello.coop/` with the following query parameters:
 - `wildcard_domain` - (OPTIONAL) a boolean value indicating if wildcard domains are enabled in Development Redirect URIs
 - `provider_hint` - (OPTIONAL) a space separated list of recommended providers per [provider_hint](https://www.hello.dev/docs/apis/wallet/#provider_hint)
 
-Eg: `response_uri` = `http://localhost:8000/` & `suffix` = "Next.js"
+Eg: `response_uri` = `http://localhost:8000/` & `suffix` = "Next.js" 
 
     https://quickstart.hello.coop/?response_uri=http%3A%2F%2Flocalhost%3A8000%2F&suffix=Next.js
 
@@ -36,7 +36,7 @@ On completion, the Quickstart app will load the `response_uri` with `client_id` 
 
 If the developer has not registered any applications, they will be prompted with a Publisher Name "John Smith's Team" and an Application Name "John Smith's Application". If a `suffix` is provided (eg. "Next.js"), then the prompt will be "John Smith's Next.js". Alternatively, the developer will choose an existing application or create a new one with the same prefilled prompt.
 
-## Sample App Response Developer Experience
+## Sample App Response Developer Experience 
 
 If possible, the sample app will have a link to test out the sample app, as well as inform the developer that they can update their Hellō application at https://console.hello.coop
 
