@@ -1,11 +1,5 @@
 <script>
-	import { onMount } from 'svelte';
-	import {
-		postPublisher,
-		postApplication,
-		putApplication,
-		postImage,
-	} from '../api.js';
+	import { postPublisher, postApplication } from '../api.js';
 	import { global } from '../state.svelte.js';
 	import { createAppBody, preventDefault } from '../util.js';
 
@@ -47,8 +41,10 @@
 			}
 			//remove duplicate prod redirect_uris
 			postAppBody.web.prod.redirect_uris = [...new Set(postAppBody.web.prod.redirect_uris)];
-			if (sendImageUri && sessionStorage.image_uri) postAppBody.image_uri = sessionStorage.image_uri;
-			if (sendDarkImageUri && sessionStorage.dark_image_uri) postAppBody.dark_image_uri = sessionStorage.dark_image_uri;
+			if (sendImageUri && sessionStorage.image_uri)
+				postAppBody.image_uri = sessionStorage.image_uri;
+			if (sendDarkImageUri && sessionStorage.dark_image_uri)
+				postAppBody.dark_image_uri = sessionStorage.dark_image_uri;
 			const appRes = await postApplication(pubRes.profile.id, postAppBody);
 			client_id = appRes.id;
 		} catch (err) {

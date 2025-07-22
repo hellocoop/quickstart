@@ -1,8 +1,7 @@
 <script>
-	import { onMount } from 'svelte';
 	import { slide } from 'svelte/transition';
 	import { preventDefault, createAppBody } from '../util.js';
-	import { postApplication, postImage } from '../api.js';
+	import { postApplication } from '../api.js';
 	import { global } from '../state.svelte.js';
 
 	const customAppNameSuffix = sessionStorage.suffix;
@@ -21,7 +20,6 @@
 		sendDarkImageUri = $state(),
 		selectedAppID = $state(),
 		applicationName = $state();
-
 
 	$effect(() => {
 		if (global.data.currentPublisher) {
@@ -70,8 +68,10 @@
 			}
 			//remove duplicate prod redirect_uris
 			postAppBody.web.prod.redirect_uris = [...new Set(postAppBody.web.prod.redirect_uris)];
-			if (sendImageUri && sessionStorage.image_uri) postAppBody.image_uri = sessionStorage.image_uri;
-			if (sendDarkImageUri && sessionStorage.dark_image_uri) postAppBody.dark_image_uri = sessionStorage.dark_image_uri;
+			if (sendImageUri && sessionStorage.image_uri)
+				postAppBody.image_uri = sessionStorage.image_uri;
+			if (sendDarkImageUri && sessionStorage.dark_image_uri)
+				postAppBody.dark_image_uri = sessionStorage.dark_image_uri;
 			try {
 				appRes = await postApplication(pubId, postAppBody);
 			} catch (err) {
