@@ -2,7 +2,7 @@
 	import { onMount } from 'svelte';
 	import { slide } from 'svelte/transition';
 	import { preventDefault, createAppBody } from '../util.js';
-	import { postApplication, postImage, testServerImageFetch } from '../api.js';
+	import { postApplication, postImage } from '../api.js';
 	import { global } from '../state.svelte.js';
 
 	const customAppNameSuffix = sessionStorage.suffix;
@@ -22,9 +22,6 @@
 		selectedAppID = $state(),
 		applicationName = $state();
 
-	//only show logo in UI if server is able to fetch image_uri or dark_image_uri passed via query params
-	let serverCanFetchLogo = $state(false);
-	let serverCanFetchDarkLogo = $state(false);
 
 	$effect(() => {
 		if (global.data.currentPublisher) {
@@ -47,25 +44,6 @@
 		global.data?.currentPublisher?.applications?.find((i) => i.id === selectedAppID) || {}
 	);
 
-	onMount(async () => {
-		if (sessionStorage.image_uri) {
-			try {
-				await testServerImageFetch(sessionStorage.image_uri);
-				serverCanFetchLogo = true;
-			} catch (err) {
-				console.error('Server was unable to fetch ' + sessionStorage.image_uri, err);
-			}
-		}
-		if (sessionStorage.dark_image_uri) {
-			try {
-				await testServerImageFetch(sessionStorage.dark_image_uri);
-				serverCanFetchDarkLogo = true;
-			} catch (err) {
-				console.error('Server was unable to fetch ' + sessionStorage.dark_image_uri, err);
-			}
-		}
-	});
-
 	$effect(() => {
 		selectedAppID,
 			(() => {
@@ -81,63 +59,28 @@
 		if (selectedAppID === 'create') {
 			const postAppBody = createAppBody(applicationName, wildcardDomain, createdBy);
 			const pubId = global.data?.currentPublisher?.profile?.id;
-			appRes = await postApplication(pubId, postAppBody);
-			if (sendTosUri) {
-				appRes.tos_uri = customTosUri || _selectedAppData.tos_uri || null;
-			} else {
-				appRes.tos_uri = null;
-			}
-
-			if (sendPpUri) {
-				appRes.pp_uri = customPpUri || _selectedAppData.pp_uri || null;
-			} else {
-				appRes.pp_uri = null;
-			}
-
+			if (sendTosUri) postAppBody.tos_uri = customTosUri || _selectedAppData.tos_uri || null;
+			if (sendPpUri) postAppBody.pp_uri = customPpUri || _selectedAppData.pp_uri || null;
 			if (sessionStorage.redirect_uri) {
 				const uris = sessionStorage.redirect_uri.split(' ');
 				uris.forEach((uri) => {
 					if (!uri.startsWith('http://localhost') && !uri.startsWith('http://127.0.0.1'))
-						appRes.web.prod.redirect_uris.push(uri);
+						postAppBody.web.prod.redirect_uris.push(uri);
 				});
-			} else {
-				appRes.web.prod.redirect_uris = appRes.web.prod.redirect_uris || [];
 			}
 			//remove duplicate prod redirect_uris
-			appRes.web.prod.redirect_uris = [...new Set(appRes.web.prod.redirect_uris)];
-
-			if (sendImageUri) {
-				if (serverCanFetchLogo && sessionStorage.image_uri) {
-					try {
-						// const resizedImageBlob = await resizeImage(sessionStorage.image_uri)
-						const image_uri = await postImage(pubId, appRes.id, sessionStorage.image_uri);
-						appRes.image_uri = image_uri;
-					} catch (e) {
-						console.error(e);
-					}
-				} else {
-					appRes.image_uri = _selectedAppData.image_uri || null;
-				}
-			} else {
-				appRes.image_uri = null;
-			}
-
-			if (sendDarkImageUri) {
-				if (serverCanFetchDarkLogo && sessionStorage.dark_image_uri) {
-					try {
-						// const resizedImageBlob = await resizeImage(
-						//   sessionStorage.dark_image_uri
-						// )
-						const image_uri = await postImage(pubId, appRes.id, sessionStorage.dark_image_uri);
-						appRes.dark_image_uri = image_uri;
-					} catch (e) {
-						console.error(e);
-					}
-				} else {
-					appRes.dark_image_uri = _selectedAppData.dark_image_uri || null;
-				}
-			} else {
-				appRes.dark_image_uri = null;
+			postAppBody.web.prod.redirect_uris = [...new Set(postAppBody.web.prod.redirect_uris)];
+			if (sendImageUri && sessionStorage.image_uri) postAppBody.image_uri = sessionStorage.image_uri;
+			if (sendDarkImageUri && sessionStorage.dark_image_uri) postAppBody.dark_image_uri = sessionStorage.dark_image_uri;
+			try {
+				appRes = await postApplication(pubId, postAppBody);
+			} catch (err) {
+				console.error(err);
+				global.notification = {
+					text: 'Failed to create application. Please try again.',
+					type: 'error'
+				};
+				return;
 			}
 		} else {
 			appRes = _selectedAppData;
@@ -284,7 +227,7 @@
 							</div>
 						{/if}
 
-						{#if serverCanFetchLogo}
+						{#if sessionStorage.image_uri}
 							<div>
 								<label for="logo-light-mode" class="text-sm opacity-60">Logo (Light mode)</label>
 								<div class="flex items-center">
@@ -304,7 +247,7 @@
 							</div>
 						{/if}
 
-						{#if serverCanFetchDarkLogo}
+						{#if sessionStorage.dark_image_uri}
 							<div>
 								<label for="logo-dark-mode" class="text-sm opacity-60">Logo (Dark mode)</label>
 								<div class="flex items-center">

@@ -44,22 +44,6 @@ const getPublisher = async (id) => {
 	return get('/publishers/' + id);
 };
 
-const testServerImageFetch = async (imageUrl) => {
-	const url = ADMIN_SERVER + `api/v1/logo/test?url=${imageUrl}`;
-	try {
-		const res = await fetch(url, {
-			headers: {
-				Authorization: `Bearer ${sessionStorage.getItem('access_token')}`
-			}
-		});
-		if (!res.ok) throw res;
-		return true;
-	} catch (err) {
-		console.log(err);
-		throw err;
-	}
-};
-
 const postImage = async (pub_id, app_id, imageUrl) => {
 	const url =
 		ADMIN_SERVER + `api/v1/publishers/${pub_id}/applications/${app_id}/logo?url=${imageUrl}`;
@@ -85,7 +69,6 @@ export {
 	postPublisher,
 	postApplication,
 	getPublisher,
-	testServerImageFetch,
 	postImage,
 	putApplication
 };
