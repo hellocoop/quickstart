@@ -2,7 +2,7 @@
 	import { onMount } from 'svelte';
 	import { slide } from 'svelte/transition';
 	import { preventDefault, createAppBody } from '../util.js';
-	import { postApplication, postImage, putApplication, testServerImageFetch } from '../api.js';
+	import { postApplication, postImage, testServerImageFetch } from '../api.js';
 	import { global } from '../state.svelte.js';
 
 	const customAppNameSuffix = sessionStorage.suffix;
@@ -77,12 +77,10 @@
 	});
 
 	async function createApp() {
-		const postAppBody = createAppBody(applicationName, wildcardDomain, createdBy);
-
-		const pubId = global.data?.currentPublisher?.profile?.id;
-
 		let appRes;
 		if (selectedAppID === 'create') {
+			const postAppBody = createAppBody(applicationName, wildcardDomain, createdBy);
+			const pubId = global.data?.currentPublisher?.profile?.id;
 			appRes = await postApplication(pubId, postAppBody);
 			if (sendTosUri) {
 				appRes.tos_uri = customTosUri || _selectedAppData.tos_uri || null;
@@ -148,7 +146,7 @@
 		//remove so that other apps created in the same sesion does not get affected
 		sessionStorage.removeItem('wildcard_domain');
 
-		return await putApplication(pubId, appRes.id, appRes);
+		return appRes;
 	}
 
 	let submitAjax = $state(false);
