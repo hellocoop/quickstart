@@ -42,3 +42,4 @@ If the developer has not registered any applications, they will be prompted with
 If possible, the sample app will have a link to test out the sample app, as well as inform the developer that they can update their Hellō application at https://console.hello.coop
 
 [MIT](LICENSE)
+
