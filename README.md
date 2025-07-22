@@ -24,6 +24,7 @@ Load `https://quickstart.hello.coop/` with the following query parameters:
 
 Eg: `response_uri` = `http://localhost:8000/` & `suffix` = "Next.js" 
 
+
     https://quickstart.hello.coop/?response_uri=http%3A%2F%2Flocalhost%3A8000%2F&suffix=Next.js
 
 ## Quickstart Response
