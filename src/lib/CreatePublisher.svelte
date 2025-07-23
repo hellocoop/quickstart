@@ -32,7 +32,7 @@
 			if (sendTosUri) postAppBody.tos_uri = customTosUri;
 			if (sendPpUri) postAppBody.pp_uri = customPpUri;
 			if (sessionStorage.redirect_uri) {
-				const uris = Array.from(sessionStorage.redirect_uri.split(' '));
+				const uris = sessionStorage.redirect_uri.trim().split(' ');
 				uris.forEach((uri) => {
 					if (!uri.startsWith('http://localhost') && !uri.startsWith('http://127.0.0.1')) {
 						postAppBody.web.prod.redirect_uris.push(uri);
@@ -172,7 +172,7 @@
 		{#if sessionStorage.redirect_uri}
 			<div>
 				<label for="redirect_uri" class="text-sm opacity-60">Redirect URI(s)</label>
-				{#each sessionStorage.redirect_uri.split(' ') as redirect_uri}
+				{#each sessionStorage.redirect_uri.trim().split(' ') as redirect_uri}
 					<span class="ml-6 block">{redirect_uri}</span>
 				{/each}
 			</div>
