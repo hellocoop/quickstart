@@ -47,10 +47,6 @@ const post = (path, data) => {
 	return send({ method: 'POST', path, data });
 };
 
-const put = (path, data) => {
-	return send({ method: 'PUT', path, data });
-};
-
 async function resizeImage(image_path) {
 	const getImage = await fetch(image_path);
 	const blob = await getImage.blob();
@@ -109,7 +105,6 @@ const cleanUrl = () => window.history.replaceState({}, document.title, window.lo
 export {
 	get,
 	post,
-	put,
 	resizeImage,
 	preventDefault,
 	readWriteSessionStorageOp,

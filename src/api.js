@@ -1,4 +1,4 @@
-import { get, post, put } from './util.js';
+import { get, post } from './util.js';
 import { ADMIN_SERVER, CONFIG, TOKEN_ENDPOINT } from './constants.js';
 
 const getAccessToken = async (code) => {
@@ -36,28 +36,8 @@ const postApplication = (pub_id, body) => {
 	return post('/publishers/' + pub_id + '/applications', body);
 };
 
-const putApplication = (pub_id, app_id, body) => {
-	return put('/publishers/' + pub_id + '/applications/' + app_id, body);
-};
-
 const getPublisher = async (id) => {
 	return get('/publishers/' + id);
-};
-
-const testServerImageFetch = async (imageUrl) => {
-	const url = ADMIN_SERVER + `api/v1/logo/test?url=${imageUrl}`;
-	try {
-		const res = await fetch(url, {
-			headers: {
-				Authorization: `Bearer ${sessionStorage.getItem('access_token')}`
-			}
-		});
-		if (!res.ok) throw res;
-		return true;
-	} catch (err) {
-		console.log(err);
-		throw err;
-	}
 };
 
 const postImage = async (pub_id, app_id, imageUrl) => {
@@ -79,13 +59,4 @@ const postImage = async (pub_id, app_id, imageUrl) => {
 	}
 };
 
-export {
-	getAccessToken,
-	getProfile,
-	postPublisher,
-	postApplication,
-	getPublisher,
-	testServerImageFetch,
-	postImage,
-	putApplication
-};
+export { getAccessToken, getProfile, postPublisher, postApplication, getPublisher, postImage };

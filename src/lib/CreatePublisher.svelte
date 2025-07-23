@@ -1,12 +1,5 @@
 <script>
-	import { onMount } from 'svelte';
-	import {
-		postPublisher,
-		postApplication,
-		putApplication,
-		postImage,
-		testServerImageFetch
-	} from '../api.js';
+	import { postPublisher, postApplication } from '../api.js';
 	import { global } from '../state.svelte.js';
 	import { createAppBody, preventDefault } from '../util.js';
 
@@ -26,28 +19,6 @@
 	let applicationName = $state(
 		customAppName || `${global.data?.profile?.name}'s ${customAppNameSuffix || 'Application'}`
 	);
-	//only show logo in UI if server is able to fetch image_uri or dark_image_uri passed via query params
-	let serverCanFetchLogo = $state(false);
-	let serverCanFetchDarkLogo = $state(false);
-
-	onMount(async () => {
-		if (sessionStorage.image_uri) {
-			try {
-				await testServerImageFetch(sessionStorage.image_uri);
-				serverCanFetchLogo = true;
-			} catch (err) {
-				console.error('Server was unable to fetch ' + sessionStorage.image_uri, err);
-			}
-		}
-		if (sessionStorage.dark_image_uri) {
-			try {
-				await testServerImageFetch(sessionStorage.dark_image_uri);
-				serverCanFetchDarkLogo = true;
-			} catch (err) {
-				console.error('Server was unable to fetch ' + sessionStorage.dark_image_uri, err);
-			}
-		}
-	});
 
 	let createPubAppAjax = $state(false);
 	async function createPubApp() {
@@ -58,12 +29,8 @@
 				name: publisherName
 			});
 			const postAppBody = createAppBody(applicationName, wildcardDomain, createdBy);
-			if (sendTosUri) {
-				postAppBody.tos_uri = customTosUri;
-			}
-			if (sendPpUri) {
-				postAppBody.pp_uri = customPpUri;
-			}
+			if (sendTosUri) postAppBody.tos_uri = customTosUri;
+			if (sendPpUri) postAppBody.pp_uri = customPpUri;
 			if (sessionStorage.redirect_uri) {
 				const uris = Array.from(sessionStorage.redirect_uri.split(' '));
 				uris.forEach((uri) => {
@@ -72,37 +39,13 @@
 					}
 				});
 			}
-
+			//remove duplicate prod redirect_uris
+			postAppBody.web.prod.redirect_uris = [...new Set(postAppBody.web.prod.redirect_uris)];
+			if (sendImageUri && sessionStorage.image_uri)
+				postAppBody.image_uri = sessionStorage.image_uri;
+			if (sendDarkImageUri && sessionStorage.dark_image_uri)
+				postAppBody.dark_image_uri = sessionStorage.dark_image_uri;
 			const appRes = await postApplication(pubRes.profile.id, postAppBody);
-			if ((serverCanFetchLogo && sendImageUri) || (serverCanFetchDarkLogo && sendDarkImageUri)) {
-				if (serverCanFetchLogo && sendImageUri) {
-					try {
-						// const resizedImageBlob = await resizeImage(sessionStorage.image_uri)
-						const image_uri = await postImage(
-							pubRes.profile.id,
-							appRes.id,
-							sessionStorage.image_uri
-						);
-						appRes.image_uri = image_uri;
-					} catch (e) {
-						console.error(e);
-					}
-				}
-				if (serverCanFetchDarkLogo && sendDarkImageUri) {
-					try {
-						// const resizedImageBlob = await resizeImage(sessionStorage.dark_image_uri)
-						const image_uri = await postImage(
-							pubRes.profile.id,
-							appRes.id,
-							sessionStorage.dark_image_uri
-						);
-						appRes.dark_image_uri = image_uri;
-					} catch (e) {
-						console.error(e);
-					}
-				}
-				await putApplication(pubRes.profile.id, appRes.id, appRes);
-			}
 			client_id = appRes.id;
 		} catch (err) {
 			console.error(err);
@@ -188,7 +131,7 @@
 			</div>
 		{/if}
 
-		{#if serverCanFetchLogo}
+		{#if sessionStorage.image_uri}
 			<div>
 				<label for="logo-light-mode" class="text-sm opacity-60">Logo (Light mode)</label>
 				<div class="flex items-center">
@@ -207,7 +150,7 @@
 			</div>
 		{/if}
 
-		{#if serverCanFetchDarkLogo}
+		{#if sessionStorage.dark_image_uri}
 			<div>
 				<label for="logo-dark-mode" class="text-sm opacity-60">Logo (Dark mode)</label>
 				<div class="flex items-center">
