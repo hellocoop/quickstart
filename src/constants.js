@@ -7,7 +7,7 @@ export const AUTHORIZATION_SERVER = 'https://wallet.' + domain + '/authorize';
 export const TOKEN_ENDPOINT = 'https://wallet.' + domain + '/oauth/token';
 export const CONSOLE = 'https://console.' + domain;
 export const CONFIG = {
-	client_id: 'hello_quick_start',
+	client_id: 'hello_quick_start_app',
 	redirect_uri: window.location.origin + '/',
 	response_mode: 'fragment',
 	response_type: 'code',
