@@ -187,7 +187,7 @@ class Footer extends HTMLElement {
               <li>
                 <a href="https://www.twitter.com/HelloCoop" target="_blank" aria-label="Go to Twitter page" rel="me">
                   <img src="https://cdn.hello.coop/images/twitter-icon.svg" alt="Twitter" height="16" width="16"/>
-                  </a>
+                </a>
               </li>
               <li>
                 <a href="https://join.slack.com/t/hello-community/shared_invite/zt-1eccnd2np-qJoOWBkHGnpxvBpCTtaH9g" target="_blank" aria-label="Join Slack Community">
