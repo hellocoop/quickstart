@@ -1,6 +1,6 @@
 {
 	"name": "quickstart",
-	"version": "2025.9.0",
+	"version": "2025.11.0",
 	"type": "module",
 	"scripts": {
 		"dev": "vite",
