@@ -9,6 +9,7 @@
 		"preview": "vite preview",
 		"lint": "prettier --check . && eslint . --fix",
 		"format": "prettier --write .",
+		"sso": "aws sso login --sso-session honestdinosaur",
 		"test": "echo \"Error: no test specified\" && exit 0"
 	},
 	"devDependencies": {
