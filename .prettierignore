@@ -5,3 +5,4 @@ cypress
 rumTracker.js
 playwright-report
 test-results
+public/assets/script.hash.js
