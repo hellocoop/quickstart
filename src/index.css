@@ -1,60 +1,88 @@
-@tailwind base;
+@import 'tailwindcss';
 
-html,
-body,
-#app {
-	@apply h-full;
+@plugin '@tailwindcss/forms' {
+	strategy: 'class';
 }
 
-body {
-	min-width: 320px;
+@custom-variant dark (@media (prefers-color-scheme: dark));
+
+@theme {
+	--color-charcoal: #303030;
 }
 
-#app {
-	@apply flex flex-col;
+/*
+  The default border color has changed to `currentcolor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+	*,
+	::after,
+	::before,
+	::backdrop,
+	::file-selector-button {
+		border-color: var(--color-gray-200, currentcolor);
+	}
 }
 
-a {
-	@apply hover:underline;
+@layer base {
+	html,
+	body,
+	#app {
+		@apply h-full;
+	}
+
+	body {
+		min-width: 320px;
+	}
+
+	#app {
+		@apply flex flex-col;
+	}
+
+	a {
+		@apply hover:underline;
+	}
+
+	input[type='url'] {
+		@apply text-charcoal dark:text-[#d4d4d4];
+	}
+
+	input[type='radio'],
+	input[type='checkbox'] {
+		@apply focus:ring-0 focus:ring-offset-0 hover:border-2 border-charcoal dark:border-[#808080];
+	}
+
+	.hello-btn {
+		height: 2.75rem;
+	}
 }
 
-input[type='url'] {
-	@apply text-charcoal dark:text-[#d4d4d4];
+@layer components {
+	.form-input,
+	.form-checkbox {
+		@apply rounded-md bg-transparent;
+	}
+
+	.form-radio {
+		@apply bg-transparent text-charcoal dark:text-[#808080];
+	}
+
+	.form-checkbox {
+		@apply dark:text-[#808080] text-charcoal w-4 h-4 rounded-xs;
+	}
+
+	.form-input {
+		@apply ring-1 border-none hover:ring-2 focus:ring-2;
+		@apply ring-charcoal!;
+		@apply dark:ring-[#808080]!;
+	}
+
+	.form-input::placeholder,
+	.form-textarea::placeholder {
+		@apply text-charcoal dark:text-[#d4d4d4] opacity-50;
+	}
 }
-
-input[type='radio'],
-input[type='checkbox'] {
-	@apply focus:ring-0 focus:ring-offset-0 hover:border-2 border-charcoal dark:border-[#808080];
-}
-
-.hello-btn {
-	height: 2.75rem;
-}
-
-@tailwind components;
-
-.form-input,
-.form-checkbox {
-	@apply rounded-md bg-transparent;
-}
-
-.form-radio {
-	@apply bg-transparent text-charcoal dark:text-[#808080];
-}
-
-.form-checkbox {
-	@apply dark:text-[#808080] text-charcoal w-4 h-4 rounded-sm;
-}
-
-.form-input {
-	@apply ring-1 border-none hover:ring-2 focus:ring-2;
-	@apply ring-charcoal !important;
-	@apply dark:ring-[#808080] !important;
-}
-
-.form-input::placeholder,
-.form-textarea::placeholder {
-	@apply text-charcoal dark:text-[#d4d4d4] opacity-50;
-}
-
-@tailwind utilities;

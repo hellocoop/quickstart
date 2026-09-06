@@ -4,7 +4,7 @@
 </script>
 
 <div
-	class="relative flex h-9 flex-shrink-0 items-center justify-center text-sm"
+	class="relative flex h-9 shrink-0 items-center justify-center text-sm"
 	class:bg-green-500={global.notification.type === 'success'}
 	class:text-charcoal={global.notification.type === 'success'}
 	class:bg-red-500={global.notification.type === 'error'}

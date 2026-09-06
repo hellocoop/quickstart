@@ -16,7 +16,7 @@
 </script>
 
 <h1 class="text-lg font-semibold">Select Publisher</h1>
-<form class="mb-6 mt-4">
+<form class="mt-4 mb-6">
 	<ul class="space-y-2">
 		{#each global.data.publishers as publisher (publisher.id)}
 			<li class="flex items-center">

@@ -39,7 +39,7 @@
 		{#if showCopiedTooltip}
 			<span
 				transition:fly={{ y: 10 }}
-				class="absolute bottom-10 right-0 inline-flex h-6 w-16 items-center justify-center rounded-md bg-green-500 text-xs text-charcoal"
+				class="text-charcoal absolute right-0 bottom-10 inline-flex h-6 w-16 items-center justify-center rounded-md bg-green-500 text-xs"
 				>Copied</span
 			>
 		{/if}
@@ -51,7 +51,7 @@
 					showCopiedTooltip = false;
 				}, 1000);
 			}}
-			class="group flex h-9 items-center justify-between rounded-md bg-charcoal px-3 text-left font-mono text-white dark:text-[#d4d4d4]"
+			class="group bg-charcoal flex h-9 items-center justify-between rounded-md px-3 text-left font-mono text-white dark:text-[#d4d4d4]"
 		>
 			{clientID}
 			<svg
@@ -71,7 +71,7 @@
 		</button>
 	</div>
 
-	<hr class="my-6 border-charcoal opacity-40 dark:border-[#808080]" />
+	<hr class="border-charcoal my-6 opacity-40 dark:border-[#808080]" />
 
 	<p>
 		Update:<br />
@@ -89,7 +89,7 @@
 		<span>Hellō Developer Console</span>
 		<svg
 			xmlns="http://www.w3.org/2000/svg"
-			class="ml-1 mt-1 h-4 w-4"
+			class="mt-1 ml-1 h-4 w-4"
 			fill="none"
 			viewBox="0 0 24 24"
 			stroke="currentColor"

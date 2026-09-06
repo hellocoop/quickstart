@@ -47,6 +47,7 @@ export default [
 			'node_modules/',
 			'cypress',
 			'rumTracker.js',
+			'public/assets/script.hash.js',
 			'assets/',
 			'playwright-report/'
 		]

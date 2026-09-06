@@ -4,7 +4,6 @@
 import * as cheerio from 'cheerio';
 import { createHash } from 'crypto';
 import fs from 'fs';
-import fetch from 'node-fetch';
 
 const invalidHashAlgorithms = ['sha1', 'md5'];
 
@@ -46,7 +45,7 @@ export default function subresourceIntegrity(options) {
 						//@ts-ignore
 						buf = Buffer.from(fs.readFileSync(buildDir + '/' + url));
 					} else if (url.startsWith('http')) {
-						buf = await (await fetch(url)).buffer();
+						buf = Buffer.from(await (await fetch(url)).arrayBuffer());
 					} else {
 						this.warn(`could not resolve resource "${url}"!`);
 						continue;
