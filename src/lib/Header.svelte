@@ -1,5 +1,5 @@
 <header
-	class="flex h-12 flex-shrink-0 items-center justify-between bg-charcoal px-4 text-white dark:text-[#d4d4d4]"
+	class="bg-charcoal flex h-12 shrink-0 items-center justify-between px-4 text-white dark:text-[#d4d4d4]"
 >
 	<span class="text-lg font-bold">Hellō Quickstart</span>
 	<ul>

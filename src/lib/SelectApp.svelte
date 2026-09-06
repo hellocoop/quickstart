@@ -43,13 +43,13 @@
 	);
 
 	$effect(() => {
-		selectedAppID,
+		(selectedAppID,
 			(() => {
 				sendTosUri = !!customTosUri || !!_selectedAppData?.tos_uri;
 				sendPpUri = !!customPpUri || !!_selectedAppData?.pp_uri;
 				sendImageUri = !!sessionStorage.image_uri || !!_selectedAppData?.image_uri;
 				sendDarkImageUri = !!sessionStorage.dark_image_uri || !!_selectedAppData?.dark_image_uri;
-			})();
+			})());
 	});
 
 	async function createApp() {
@@ -202,7 +202,7 @@
 										id="terms-of-service"
 										class="form-checkbox"
 									/>
-									<a href={customTosUri} target="_blank" class="ml-2 block break-all text-sm"
+									<a href={customTosUri} target="_blank" class="ml-2 block text-sm break-all"
 										>{customTosUri}</a
 									>
 								</div>
@@ -220,7 +220,7 @@
 										id="privacy-policy"
 										class="form-checkbox"
 									/>
-									<a href={customPpUri} target="_blank" class="ml-2 block break-all text-sm"
+									<a href={customPpUri} target="_blank" class="ml-2 block text-sm break-all"
 										>{customPpUri}</a
 									>
 								</div>
@@ -239,7 +239,7 @@
 										class="form-checkbox"
 									/>
 									<div
-										class="ml-2 mt-0.5 inline-flex h-20 w-20 items-center justify-center rounded-md bg-white p-1.5"
+										class="mt-0.5 ml-2 inline-flex h-20 w-20 items-center justify-center rounded-md bg-white p-1.5"
 									>
 										<img src={sessionStorage.image_uri} alt="{applicationName} light mode logo" />
 									</div>
@@ -259,7 +259,7 @@
 										class="form-checkbox"
 									/>
 									<div
-										class="ml-2 mt-0.5 inline-flex h-20 w-20 items-center justify-center rounded-md bg-[#151515] p-1.5"
+										class="mt-0.5 ml-2 inline-flex h-20 w-20 items-center justify-center rounded-md bg-[#151515] p-1.5"
 									>
 										<img
 											src={sessionStorage.dark_image_uri}
@@ -273,8 +273,8 @@
 						{#if sessionStorage.redirect_uri}
 							<div>
 								<label for="redirect_uri" class="text-sm opacity-60">Redirect URI(s)</label>
-								{#each sessionStorage.redirect_uri.trim().split(' ') as redirect_uri}
-									<span class="ml-6 block break-all text-sm">{redirect_uri}</span>
+								{#each sessionStorage.redirect_uri.trim().split(' ') as redirect_uri (redirect_uri)}
+									<span class="ml-6 block text-sm break-all">{redirect_uri}</span>
 								{/each}
 							</div>
 						{/if}

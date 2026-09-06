@@ -100,7 +100,7 @@
 		/>
 	</div>
 
-	<div class="ml-3 mt-2 space-y-0.5">
+	<div class="mt-2 ml-3 space-y-0.5">
 		{#if sessionStorage.tos_uri}
 			<div>
 				<label for="terms-of-service" class="text-sm opacity-60">Terms of Service</label>
@@ -142,7 +142,7 @@
 						class="form-checkbox"
 					/>
 					<div
-						class="ml-2 mt-0.5 inline-flex h-20 w-20 items-center justify-center rounded-md bg-white p-1.5"
+						class="mt-0.5 ml-2 inline-flex h-20 w-20 items-center justify-center rounded-md bg-white p-1.5"
 					>
 						<img src={sessionStorage.image_uri} alt="{applicationName} light mode logo" />
 					</div>
@@ -161,7 +161,7 @@
 						class="form-checkbox"
 					/>
 					<div
-						class="ml-2 mt-0.5 inline-flex h-20 w-20 items-center justify-center rounded-md bg-[#151515] p-1.5"
+						class="mt-0.5 ml-2 inline-flex h-20 w-20 items-center justify-center rounded-md bg-[#151515] p-1.5"
 					>
 						<img src={sessionStorage.dark_image_uri} alt="{applicationName} dark mode logo" />
 					</div>
@@ -172,7 +172,7 @@
 		{#if sessionStorage.redirect_uri}
 			<div>
 				<label for="redirect_uri" class="text-sm opacity-60">Redirect URI(s)</label>
-				{#each sessionStorage.redirect_uri.trim().split(' ') as redirect_uri}
+				{#each sessionStorage.redirect_uri.trim().split(' ') as redirect_uri (redirect_uri)}
 					<span class="ml-6 block">{redirect_uri}</span>
 				{/each}
 			</div>
@@ -180,7 +180,7 @@
 	</div>
 
 	<button
-		class="hello-btn-black-and-static mt-4 flex h-11 w-full items-center justify-center rounded-md border-2 border-[#808080] bg-charcoal disabled:opacity-50"
+		class="hello-btn-black-and-static bg-charcoal mt-4 flex h-11 w-full items-center justify-center rounded-md border-2 border-[#808080] disabled:opacity-50"
 		class:hello-btn-loader={createPubAppAjax}
 		disabled={createPubAppAjax || !publisherName.length || !applicationName.length}
 	>

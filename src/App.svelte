@@ -79,6 +79,7 @@
 			loginAjax = true;
 			const { code_verifier, code_challenge } = await pkceChallenge();
 			sessionStorage.setItem('code_verifier', code_verifier);
+			// eslint-disable-next-line svelte/prefer-svelte-reactivity -- local, not reactive state
 			const uri = new URL(AUTHORIZATION_SERVER);
 			uri.search = new URLSearchParams(CONFIG).toString();
 			uri.searchParams.set('code_challenge', code_challenge);
